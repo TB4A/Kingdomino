@@ -230,21 +230,31 @@ public class Gamedata {
 			while(true) {
 
 				try{ // get and convert string cardinal location to int {1,2,3 or 4}
-				@SuppressWarnings("resource")	
-				Scanner sc_positionX= new Scanner(System.in);
-				@SuppressWarnings("resource")
-				Scanner sc_positionY= new Scanner(System.in);
-				position[0] = sc_positionX.nextInt();
-				position[1] = sc_positionY.nextInt();
-				@SuppressWarnings("resource")
-				Scanner sc_orientationCardinal= new Scanner(System.in);
-				orientationCardinal = sc_orientationCardinal.nextLine();
-				System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west");
-				if(orientationCardinal=="north") {orientation = 1;break;}
-				else if(orientationCardinal=="east") {orientation = 2;break;}
-				else if(orientationCardinal=="south") {orientation = 3;break;}
-				else if(orientationCardinal=="west") {orientation = 4;break;}
-				else{System.out.println("invalide check the cardinal direction is in lower case");}
+					
+					// x pos
+					System.out.println("enter x pos");
+					@SuppressWarnings("resource")	
+					Scanner sc_positionX= new Scanner(System.in);
+					position[0] = sc_positionX.nextInt();
+					// y pos
+					System.out.println("enter y pos");
+					@SuppressWarnings("resource")
+					Scanner sc_positionY= new Scanner(System.in);
+
+					position[1] = sc_positionY.nextInt();
+					
+					// orientation
+					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west");
+					@SuppressWarnings("resource")
+					Scanner sc_orientationCardinal= new Scanner(System.in);
+					orientationCardinal = sc_orientationCardinal.nextLine();
+					
+					// cardinal to integer
+					if(orientationCardinal=="north") {orientation = 1;break;}
+					else if(orientationCardinal=="east") {orientation = 2;break;}
+					else if(orientationCardinal=="south") {orientation = 3;break;}
+					else if(orientationCardinal=="west") {orientation = 4;break;}
+					else{System.out.println("invalide check the cardinal direction is in lower case");}
 				}
 				catch(Exception e) {System.out.println("invalide enter a cardinal direction");} // if error do 	
 			}
