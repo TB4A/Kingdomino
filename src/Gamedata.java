@@ -166,12 +166,6 @@ public class Gamedata {
 		
 		
 		
-		
-		public void setRoundSelection(Object drawFromDrawPile) {
-			// TODO Auto-generated method stub
-			
-		}
-		
 		public void setPlayerOrder() {
 			// TODO Auto-generated method stub
 			for(int i = 0 ; i<currentDraw.size();i++) {
@@ -222,9 +216,9 @@ public class Gamedata {
 			System.out.println("finnishing Player "+playerID+" Pick....");
 		}
 
-		public void kingdomCheck(int i) {
+		public Boolean kingdomCheck(int PlayerID) {
 			// TODO Auto-generated method stub
-			
+			return false;
 		}
 
 		public void playerKingdomPlace(int playerID) {

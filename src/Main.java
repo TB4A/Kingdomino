@@ -21,11 +21,21 @@ public class Main {
 		// TODO Auto-generated method stub
 		/////////ini
 		int entry_numberOfPlayer = 4;
-		Gamedata game = new Gamedata(entry_numberOfPlayer);
+		
 		
 		///[graph] each player will be prompted to write their name and king color 
-		while(true) { 			///////// Gameloop///////////
+		gameloop(entry_numberOfPlayer);
+		///[graph] player ranked first inside the player order list is prompted to pick a domino
+		///[graph] player ranked first inside the player order list is prompted to pick a domino
+	}
 
+	private static void gameloop(int numberOfPlayer) {
+		// TODO Auto-generated method stub
+		while(true) { 			///////// Gameloop///////////
+			
+			/////////initialize the game object
+			Gamedata game = new Gamedata(numberOfPlayer);
+			
 			game.drawFromDrawPile();
 			///[graph] drawn dominos appear on screen
 			System.out.println(game.currentDraw);
@@ -39,8 +49,6 @@ public class Main {
 			}
 			game.setPlayerOrder();
 		}
-		///[graph] player ranked first inside the player order list is prompted to pick a domino
-		///[graph] player ranked first inside the player order list is prompted to pick a domino
 	}
 	
 	
