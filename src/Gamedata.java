@@ -227,22 +227,25 @@ public class Gamedata {
 			int orientation;
 			String orientationCardinal;
 			
+
+			try{ // get and convert string cardinal location to int {1,2,3 or 4}
+				
+				// x pos
+				System.out.println("enter x pos");
+				@SuppressWarnings("resource")	
+				Scanner sc_positionX= new Scanner(System.in);
+				position[0] = sc_positionX.nextInt();
+				
+				// y pos
+				System.out.println("enter y pos");
+				@SuppressWarnings("resource")
+				Scanner sc_positionY= new Scanner(System.in);
+				position[1] = sc_positionY.nextInt();
+			}
+			catch(Exception e) {}
+				
 			while(true) {
-
-				try{ // get and convert string cardinal location to int {1,2,3 or 4}
-					
-					// x pos
-					System.out.println("enter x pos");
-					@SuppressWarnings("resource")	
-					Scanner sc_positionX= new Scanner(System.in);
-					position[0] = sc_positionX.nextInt();
-					// y pos
-					System.out.println("enter y pos");
-					@SuppressWarnings("resource")
-					Scanner sc_positionY= new Scanner(System.in);
-
-					position[1] = sc_positionY.nextInt();
-					
+				try{
 					// orientation
 					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west");
 					@SuppressWarnings("resource")
@@ -260,7 +263,7 @@ public class Gamedata {
 			}
 				player.get(playerID).placeLastSelectedInKingdom(position,orientation);
 			
-			
+		
 			//
 			
 			
