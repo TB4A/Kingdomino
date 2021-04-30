@@ -96,7 +96,7 @@ public class Gamedata {
 			}										//
 			//////////////////////////////////////////
 	        System.out.println(numberOfPlayer);
-			return sufflePile(dominoPile);
+			return shufflePile(dominoPile);
 			
 		}
 		
@@ -104,7 +104,7 @@ public class Gamedata {
 	
 	
 	
-		public static List<List<String>> sufflePile(List<List<String>> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity 
+		public static List<List<String>> shufflePile(List<List<String>> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity
 			//List<String> header = dominoPile.get(0);
 			//System.out.println((header));
 			dominoPile.remove(0);
@@ -136,7 +136,7 @@ public class Gamedata {
 		//Meilleur cas : O(n)
 		//Pire cas :O(n^2)
 			
-		System.out.print("Debut du triage insersion de la liste --- > ");
+		System.out.print("Debut du triage insertion de la liste --- > ");
 		System.out.println(arg_currentDraw);
 		Instant start = Instant.now();
 		///// (arg_currentDraw.get(0)).get(4);
@@ -158,9 +158,9 @@ public class Gamedata {
 
 			}
 		Instant end = Instant.now();
-		System.out.println("Fin du triage insersion");
+		System.out.println("Fin du triage insertion");
 		long duration = Duration.between(start, end).toMillis();
-		System.out.println("triage insersion a pris " + duration + " ms");
+		System.out.println("triage insertion a pris " + duration + " ms");
 		return arg_currentDraw;
 		}
 		
@@ -206,7 +206,7 @@ public class Gamedata {
 			/// add the PlayerID of the player to the selected domino
 			List<String> selectedDomino = currentDraw.get(int_playerPick);
 			//selectedDomino.remove(5);// 5 is the index of the playerID column
-			//System.out.println("colum removed");
+			//System.out.println("column removed");
 			selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
 			//currentDraw.remove(int_playerPick);
 			currentDraw.set(int_playerPick, selectedDomino);
