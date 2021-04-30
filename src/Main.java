@@ -1,4 +1,5 @@
-
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -27,6 +28,48 @@ public class Main {
 			Gamedata game = new Gamedata(numberOfPlayer);
 			
 			game.drawFromDrawPile();
+
+			JFrame frame = new JFrame("Kingdomino");
+			frame.setSize(new Dimension(500,500));
+			frame.setLayout(new GridLayout(1,4));
+
+			/*
+			for (int i = 1; i<5; i++) {
+				JLabel label = new JLabel();
+				label.setIcon(new ImageIcon("terrainTile"+i+".png"));
+				frame.add(label);
+			}
+
+			 */
+			JPanel panel = new JPanel();
+
+			JButton jbutton1 = new JButton();
+			jbutton1.setIcon(new ImageIcon("terrainTile1.png"));
+			panel.add(jbutton1);
+
+			JButton jbutton2 = new JButton();
+			jbutton2.setIcon(new ImageIcon("terrainTile2.png"));
+			panel.add(jbutton2);
+
+			JButton jbutton3 = new JButton();
+			jbutton3.setIcon(new ImageIcon("terrainTile3.png"));
+			panel.add(jbutton3);
+
+			JButton jbutton4 = new JButton();
+			jbutton4.setIcon(new ImageIcon("terrainTile4.png"));
+			panel.add(jbutton4);
+
+			frame.add(panel);
+			/*
+			JButton jbutton = new JButton("test");
+			jbutton.setIcon(new ImageIcon("terrainTile2.png"));
+			jbutton.setVerticalTextPosition(SwingConstants.TOP);
+			jbutton.setVerticalAlignment(SwingConstants.CENTER);
+			frame.add(jbutton);
+			*/
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
+
 			///[graph] drawn dominos appear on screen
 			System.out.println(game.currentDraw);
 			System.out.println(game.player.get(2).playerName);
