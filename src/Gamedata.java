@@ -248,12 +248,12 @@ public class Gamedata {
 					@SuppressWarnings("resource")
 					Scanner sc_orientationCardinal= new Scanner(System.in);
 					orientationCardinal = sc_orientationCardinal.nextLine();
-					
+					System.out.println("player entered "+orientationCardinal);
 					// cardinal to integer
-					if(orientationCardinal=="north") {orientation = 1;break;}
-					else if(orientationCardinal=="east") {orientation = 2;break;}
-					else if(orientationCardinal=="south") {orientation = 3;break;}
-					else if(orientationCardinal=="west") {orientation = 4;break;}
+					if(orientationCardinal.equals("north")){orientation = 1;break;}
+					else if(orientationCardinal.equals("east")) {orientation = 2;break;}
+					else if(orientationCardinal.equals("south")) {orientation = 3;break;}
+					else if(orientationCardinal.equals("west")) {orientation = 4;break;}
 					else{System.out.println("invalide check the cardinal direction is in lower case");}
 				}
 				catch(Exception e) {System.out.println("invalide enter a cardinal direction");} // if error do 	
