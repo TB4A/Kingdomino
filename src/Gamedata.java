@@ -132,7 +132,7 @@ public class Gamedata {
 
 
 		public List<List<String>> sortDraw(List<List<String>> arg_currentDraw) { // order the current draw in domino ascending order
-		// complexité algo 
+		// complexitÃ© algo
 		//Meilleur cas : O(n)
 		//Pire cas :O(n^2)
 			
@@ -244,7 +244,7 @@ public class Gamedata {
 					position[1] = sc_positionY.nextInt();
 					
 					// orientation
-					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west");
+					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west)");
 					@SuppressWarnings("resource")
 					Scanner sc_orientationCardinal= new Scanner(System.in);
 					orientationCardinal = sc_orientationCardinal.nextLine();
@@ -254,9 +254,9 @@ public class Gamedata {
 					else if(orientationCardinal.equals("east")) {orientation = 2;break;}
 					else if(orientationCardinal.equals("south")) {orientation = 3;break;}
 					else if(orientationCardinal.equals("west")) {orientation = 4;break;}
-					else{System.out.println("invalide check the cardinal direction is in lower case");}
+					else{System.out.println("invalid check the cardinal direction is in lower case");}
 				}
-				catch(Exception e) {System.out.println("invalide enter a cardinal direction");} // if error do 	
+				catch(Exception e) {System.out.println("invalid enter a cardinal direction");} // if error do
 			}
 				player.get(playerID).placeLastSelectedInKingdom(position,orientation);
 			
