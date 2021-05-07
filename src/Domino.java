@@ -20,9 +20,12 @@ public class Domino {
 		catch (Exception e) {this.dominoID = null; }// the fist line of csv contain a characters and a such will cause an error when expecting an integer durring the pick phase
 	
 		///// initialize Tile 0 "the origin"
+		try {
 		Tile tile0 = new Tile(Integer.parseInt(importData_splitedLine[0]),importData_splitedLine[1]);// create an object tile containing the biome and the number of crowns 
 		///// initialize Tile 1 "the orientation"
 		Tile tile1 = new Tile(Integer.parseInt(importData_splitedLine[2]),importData_splitedLine[3]);
+		}
+		catch(Exception e) {}
 	}
 
 	public void setDominoID(Integer dominoID) {

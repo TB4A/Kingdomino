@@ -1,4 +1,5 @@
 
+
 public class Tile{
 	
 	public Tile(Integer numberOfCrown,String biome) {
