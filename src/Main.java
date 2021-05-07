@@ -31,16 +31,38 @@ public class Main {
 
 			JFrame frame = new JFrame("Kingdomino");
 			frame.setSize(new Dimension(500,500));
-			frame.setLayout(new GridLayout(1,4));
-
+			JPanel Kingdom2 = new JPanel();
+			frame.add(Kingdom2);
+			Kingdom2.setLayout( new GridBagLayout() );
+			Kingdom2.setSize(new Dimension(300,300));
+			//Kingdom.setBounds(0, 0, boardSize.width, boardSize.height);
 			/*
-			for (int i = 1; i<5; i++) {
+			for (int i = 1; i<26; i++) {
 				JLabel label = new JLabel();
-				label.setIcon(new ImageIcon("terrainTile"+i+".png"));
+				label.setIcon(new ImageIcon("terrainTile1.png"));
 				frame.add(label);
 			}
 
 			 */
+
+			GridBagConstraints constraints = new GridBagConstraints();
+
+			constraints.fill = GridBagConstraints.BOTH;
+			constraints.insets = new Insets(0, 0, 0, 0);
+			constraints.ipady = constraints.anchor = GridBagConstraints.CENTER;
+			constraints.weightx = 5;
+			constraints.weighty = 5;
+
+			for (int j = 0; j<5; j++) {
+				for (int i = 0; i<5; i++) {
+					JLabel label = new JLabel();
+					label.setIcon(new ImageIcon("terrainTile1.png"));
+					constraints.gridx = i;
+					constraints.gridy = j;
+					Kingdom2.add(label, constraints);
+				}
+			}
+			/*
 			JPanel panel = new JPanel();
 
 			JButton jbutton1 = new JButton();
@@ -60,6 +82,8 @@ public class Main {
 			panel.add(jbutton4);
 
 			frame.add(panel);
+
+
 			/*
 			JButton jbutton = new JButton("test");
 			jbutton.setIcon(new ImageIcon("terrainTile2.png"));
@@ -67,6 +91,9 @@ public class Main {
 			jbutton.setVerticalAlignment(SwingConstants.CENTER);
 			frame.add(jbutton);
 			*/
+
+			JLabel l = new JLabel();
+
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 
