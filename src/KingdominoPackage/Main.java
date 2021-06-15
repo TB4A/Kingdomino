@@ -42,17 +42,17 @@ public class Main extends Application {
 		primaryStage.setScene(new Scene(root, 1250, 750));
 
 		Image[] img = new Image[11];
-		img[0] = new Image("file:prairie.png", 100,100, true, false);
-		img[1] = new Image("file:mines.png", 100,100, true, false);
-		img[2] = new Image("file:foret.png", 100,100, true, false);
-		img[3] = new Image("file:montagne.png", 100,100, true, false);
-		img[4] = new Image("file:champs.png", 100,100, true, false);
-		img[5] = new Image("file:mer.png", 100,100, true, false);
-		img[6] = new Image("file:terrainTile1.png", 100,100, true, false);
-		img[7] = new Image("file:pieceBlue.png", 64,64, true, false);
-		img[8] = new Image("file:piecePurple.png", 64,64, true, false);
-		img[9] = new Image("file:pieceRed.png", 64,64, true, false);
-		img[10] = new Image("file:pieceYellow.png", 64,64, true, false);
+		img[0] = new Image("file:Assets/prairie.png", 100,100, true, false);
+		img[1] = new Image("file:Assets/mines.png", 100,100, true, false);
+		img[2] = new Image("file:Assets/foret.png", 100,100, true, false);
+		img[3] = new Image("file:Assets/montagne.png", 100,100, true, false);
+		img[4] = new Image("file:Assets/champs.png", 100,100, true, false);
+		img[5] = new Image("file:Assets/mer.png", 100,100, true, false);
+		img[6] = new Image("file:Assets/terrainTile1.png", 100,100, true, false);
+		img[7] = new Image("file:Assets/pieceBlue.png", 64,64, true, false);
+		img[8] = new Image("file:Assets/piecePurple.png", 64,64, true, false);
+		img[9] = new Image("file:Assets/pieceRed.png", 64,64, true, false);
+		img[10] = new Image("file:Assets/pieceYellow.png", 64,64, true, false);
 		ImageView[][] imgv = new ImageView[9][9];
 		ChoiceBox<Object> cb = new ChoiceBox<Object>(FXCollections.observableArrayList("Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"));
 		cb.setValue("Joueur 1");
