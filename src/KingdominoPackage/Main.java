@@ -218,7 +218,7 @@ public class Main extends Application {
 
 			game.drawFromDrawPile();
 
-
+			
 			///[graph] drawn dominos appear on screen
 			System.out.println(game.currentDraw);
 			System.out.println(game.player.get(2).playerName);
@@ -227,7 +227,7 @@ public class Main extends Application {
 			//for(int i = 0 ; i<playerOrder.length;i++) {
 				//int currentplayerID = playerOrder[i];
 				//game.playerPick(currentplayerID);
-				//game.kingdomCheck(i);
+				// not used right now game.kingdomCheck(i);
 				//game.playerKingdomPlace(currentplayerID);
 			//}
 			//game.setPlayerOrder();

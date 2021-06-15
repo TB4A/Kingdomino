@@ -61,7 +61,6 @@ public class Player {
 	public boolean checkPlacementValidity(Domino testedDomino/* the domino that the player tries to check validity of*/,int x_tile0,int y_tile0,int x_tile1,int y_tile1) {
 		// both tile need to be check at the same time if only one has manage to made a connection
 		
-		
 		int[] x_tile = new int[2];
 		x_tile[0] = x_tile0;
 		x_tile[1] = x_tile1;
@@ -70,12 +69,14 @@ public class Player {
 		y_tile[0] = y_tile0;
 		y_tile[1] = y_tile1;
 		
+		Tile[] testedDomino_tile = {testedDomino.tile0,testedDomino.tile1};// ini testdomino as array for fast loop access
 		//int numberOfNeighbour = 0;
 		//int addedPoints = 0;
 		
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino
 			
 
+			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
 				// tile of int side check
@@ -86,9 +87,13 @@ public class Player {
 				if((dominoOfKingdom.tile1.x == x_tile[side]) && (dominoOfKingdom.tile1.y == y_tile[side])) {
 					return false;
 				}
-					//check for neighbour
+					//check for neighbour at a given y on the left and right of the Tile
 				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome)) {return true;}
 					
+				}
+				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome)) {return true;}
 					
 				}
 				
@@ -116,7 +121,7 @@ public class Player {
 		
 		//check if placement coordinates are valid
 		
-		if (checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {return;}
+		if (checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {System.out.println("non-valid placement");return;}
 		
 		// set coordinates of tile 1 and tile 2 if check succeeded
 		

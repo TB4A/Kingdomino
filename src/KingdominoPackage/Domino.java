@@ -1,5 +1,4 @@
 package KingdominoPackage;
-
 import java.io.IOException;
 
 public class Domino {

@@ -1,5 +1,4 @@
 package KingdominoPackage;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -99,7 +98,7 @@ public class Gamedata {
 			}										//
 			//////////////////////////////////////////
 	        System.out.println(numberOfPlayer);
-			return shufflePile(dominoPile);
+			return sufflePile(dominoPile);
 			
 		}
 		
@@ -107,7 +106,7 @@ public class Gamedata {
 	
 	
 	
-		public static List<Domino> shufflePile(List<Domino> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity
+		public static List<Domino> sufflePile(List<Domino> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity 
 			//List<String> header = dominoPile.get(0);
 			//System.out.println((header));
 			dominoPile.remove(0);
@@ -139,7 +138,7 @@ public class Gamedata {
 		//Meilleur cas : O(n)
 		//Pire cas :O(n^2)
 			
-		System.out.print("Debut du triage insertion de la liste --- > ");
+		System.out.print("Debut du triage insersion de la liste --- > ");
 		System.out.println(arg_currentDraw);
 		Instant start = Instant.now();
 		///// (arg_currentDraw.get(0)).get(4);
@@ -160,9 +159,9 @@ public class Gamedata {
 
 			}
 		Instant end = Instant.now();
-		System.out.println("Fin du triage insertion");
+		System.out.println("Fin du triage insersion");
 		long duration = Duration.between(start, end).toMillis();
-		System.out.println("triage insertion a pris " + duration + " ms");
+		System.out.println("triage insersion a pris " + duration + " ms");
 		return arg_currentDraw;
 		}
 		
@@ -185,12 +184,12 @@ public class Gamedata {
 ////////////////////////// interface //////////////////////////////////
 		
 		
-		public void playerPick(int playerID, int int_playerPick) {
-			//////////this method add the name of the player to the picked card and prevent it to be picked by an other player, before that it check if the picked card had been previously been picked if so it re asked 
+		public void playerPick(int playerID,int playerPick/*one of the N of the CurrentDraw's card going from 0 to N*/) {
+//////////this method add the name of the player to the picked card and prevent it to be picked by an other player, before that it check if the picked card had been previously been picked if so it re asked 
 			// TODO Auto-generated method stub
 				System.out.println("player "+playerID+" :select a Domino between 0 and "+ (numberOfPlayer-1));
 				try {
-					if(currentDraw.get(int_playerPick).getOwner() == null) {
+					if(currentDraw.get(playerPick).getOwner() == null) {
 					}
 				}
 				catch(Exception e) {
@@ -198,12 +197,12 @@ public class Gamedata {
 					}
 
 			/// add the PlayerID of the player to the selected domino
-			Domino selectedDomino = currentDraw.get(int_playerPick);
+			Domino selectedDomino = currentDraw.get(playerPick);
 			//selectedDomino.remove(5);// 5 is the index of the playerID column
 			//System.out.println("colum removed");
 			selectedDomino.setOwner(player.get(playerID));//selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
 			//currentDraw.remove(int_playerPick);
-			currentDraw.set(int_playerPick, selectedDomino);
+			currentDraw.set(playerPick, selectedDomino);
 			
 			// send a copy of the domino to the player ""Inventory" DominoSelectionPile" to be placed the next round if he can place it
 			player.get(playerID).addToSelectionPile(selectedDomino);
