@@ -18,8 +18,8 @@ public class Gamedata {
 	///////////////////////////////////////// attributes /////////////////////////////////////////////////////
 	
 	static int numberOfPlayer;
-	List<List<String>> dominoPile;
-	List<List<String>> currentDraw = new ArrayList<>() ;
+	List<Domino> dominoPile;
+	List<Domino> currentDraw = new ArrayList<>() ;
 	List<Player> player = new ArrayList<Player>();// initialize player list "containing the objects of the class Player"
 	int[] playerOrder;
 	
@@ -49,40 +49,41 @@ public class Gamedata {
 	
 	///////////////////////////////////////// methodes /////////////////////////////////////////////////////
 	
-	public void setCurrentDraw(List<List<String>> arg_setCurrentDraw){
+	public void setCurrentDraw(List<Domino> arg_setCurrentDraw){
 		
 		this.currentDraw = arg_setCurrentDraw;
 	}
 
-	public void setDominoPile(List<List<String>> arg_setDominoPile){
+	public void setDominoPile(List<Domino> arg_setDominoPile){
 		
 		this.dominoPile = arg_setDominoPile;
 	}
 
 	
 	
-	public static List<List<String>> createDrawPile() {
+	public static List<Domino> createDrawPile() {
 		// TODO Auto-generated method stub
 			/// load csv and add domino status in the pile 
-			List<List<String>> dominoPile = new ArrayList<>();
+			List<Domino> dominoPile = new ArrayList<>();
 			try (BufferedReader br = new BufferedReader(new FileReader("dominos.csv"))) {
 			    String line; // buffer reader next line
 			    while ((line = br.readLine()) != null) { //while there is data to read
 			    	String[] splitedLine = line.split(","); // chunk the line into segment of data "colones" separated in the csv by ","
 			    	
+			    	Domino domino = new Domino(splitedLine);
 			    	///// add missing data to the gathered csv line per line at runtime
-			    	int n = splitedLine.length;
-			        String[] values = new String[n+1] ; // if need to add one more col change with -- > new String[n+1]
-			        for(int i = 0 ; i < 5; i++)       
-			        	{
-				        values[i] = splitedLine[i];
-				        }
+			    	//int n = splitedLine.length;
+			    	//Domino values = new Domino;//String[] values = new String[n+1] ; // if need to add one more col change with -- > new String[n+1]
+			    	//for(int i = 0 ; i < 5; i++)       
+			    	//  	{
+			    	//     values[i] = splitedLine[i];
+			    	//      }
 			        //[was used if we add additional columns]
 			        //if (dominoPile.size() == 0) {values[5] = "PlayerID";} //if the pile is empty (so the first entry is still running) we use "Etat" as an header for the column
 			        //else {values[5] = "available";}
 			        
 			        ///// print the pile line per line
-			        dominoPile.add(Arrays.asList(values));// add the those chunks contained into an array of string "the chunks are of type strings" to the variable dominoPile which is an array list / a table
+			        dominoPile.add(domino);// add the those chunks contained into an array of string "the chunks are of type strings" to the variable dominoPile which is an array list / a table
 			    	//System.out.println(Arrays.toString(values));
 
 			    }
@@ -106,7 +107,7 @@ public class Gamedata {
 	
 	
 	
-		public static List<List<String>> shufflePile(List<List<String>> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity
+		public static List<Domino> sufflePile(List<Domino> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity 
 			//List<String> header = dominoPile.get(0);
 			//System.out.println((header));
 			dominoPile.remove(0);
@@ -133,7 +134,7 @@ public class Gamedata {
 		}
 
 
-		public List<List<String>> sortDraw(List<List<String>> arg_currentDraw) { // order the current draw in domino ascending order
+		public List<Domino> sortDraw(List<Domino> arg_currentDraw) { // order the current draw in domino ascending order
 		// complexité algo
 		//Meilleur cas : O(n)
 		//Pire cas :O(n^2)
@@ -144,18 +145,17 @@ public class Gamedata {
 		///// (arg_currentDraw.get(0)).get(4);
 		for (int i = 1; i < arg_currentDraw.size(); i++) {
 			
-				List<String> ligneATrier = arg_currentDraw.get(i);
-				int elementATrier = Integer.parseInt(ligneATrier.get(4));
+				Domino dominoATrier = arg_currentDraw.get(i);
+				int elementATrier = (dominoATrier.getDominoID()); //int elementATrier = Integer.parseInt(ligneATrier.get(4));
 				
 				int j = i;
-				while (j > 0 && Integer.parseInt((arg_currentDraw.get(j-1)).get(4))> elementATrier) 
+				while (j > 0 && ((arg_currentDraw.get(j-1)).getDominoID())> elementATrier)
 					{
 					arg_currentDraw.remove(j);
 					arg_currentDraw.add(j,arg_currentDraw.get(j-1));
 					j--;
 					}
-				arg_currentDraw.remove(j);
-				arg_currentDraw.add(j,ligneATrier);
+				arg_currentDraw.set(j,dominoATrier);
 				
 
 			}
@@ -171,8 +171,8 @@ public class Gamedata {
 		public void setPlayerOrder() {
 			// TODO Auto-generated method stub
 			for(int i = 0 ; i<currentDraw.size();i++) {
-				playerOrder[i] = Integer.parseInt(currentDraw.get(i).get(5));
-			}	
+				playerOrder[i] = currentDraw.get(i).getOwner();
+			}
 							
 		}
 		
@@ -196,10 +196,10 @@ public class Gamedata {
 					}
 
 			/// add the PlayerID of the player to the selected domino
-			List<String> selectedDomino = currentDraw.get(int_playerPick);
+			Domino selectedDomino = currentDraw.get(int_playerPick);
 			//selectedDomino.remove(5);// 5 is the index of the playerID column
-			//System.out.println("column removed");
-			selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
+			//System.out.println("colum removed");
+			selectedDomino.setOwner(playerID);//selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
 			//currentDraw.remove(int_playerPick);
 			currentDraw.set(int_playerPick, selectedDomino);
 			
@@ -216,9 +216,28 @@ public class Gamedata {
 		public void playerKingdomPlace(int playerID) {
 			// TODO Auto-generated method stub
 			int[] position = new int[2];
-			int orientation;
+			int orientation = 90;
 			String orientationCardinal;
 			
+			//// event update orientation "console" need to be replace with gui 
+			while(true) {
+				try{
+					// orientation
+					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west)");
+					@SuppressWarnings("resource")
+					Scanner sc_orientationCardinal= new Scanner(System.in);
+					orientationCardinal = sc_orientationCardinal.nextLine();
+					System.out.println("player entered "+orientationCardinal);
+					// cardinal to integer
+					if(orientationCardinal.equals("west")) {orientation = 0;break;}
+					else if(orientationCardinal.equals("north")){orientation = 90;break;}
+					else if(orientationCardinal.equals("east")) {orientation = 180;break;}
+					else if(orientationCardinal.equals("south")) {orientation = 270;break;}
+
+					else{System.out.println("invalid check the cardinal direction is in lower case");}
+				}
+				catch(Exception e) {System.out.println("invalid enter a cardinal direction");} // if error do
+			}
 
 			try{ // get and convert string cardinal location to int {1,2,3 or 4}
 				
@@ -236,24 +255,8 @@ public class Gamedata {
 			}
 			catch(Exception e) {}
 				
-			while(true) {
-				try{
-					// orientation
-					System.out.println("enter cardinal orientation centered on the given position (north , east ,south , west)");
-					@SuppressWarnings("resource")
-					Scanner sc_orientationCardinal= new Scanner(System.in);
-					orientationCardinal = sc_orientationCardinal.nextLine();
-					System.out.println("player entered "+orientationCardinal);
-					// cardinal to integer
-					if(orientationCardinal.equals("north")){orientation = 1;break;}
-					else if(orientationCardinal.equals("east")) {orientation = 2;break;}
-					else if(orientationCardinal.equals("south")) {orientation = 3;break;}
-					else if(orientationCardinal.equals("west")) {orientation = 4;break;}
-					else{System.out.println("invalid check the cardinal direction is in lower case");}
-				}
-				catch(Exception e) {System.out.println("invalid enter a cardinal direction");} // if error do
-			}
-				player.get(playerID).placeLastSelectedInKingdom(position,orientation);
+
+				//player.get(playerID).placeLastSelectedInKingdomAsTile(position,orientation);
 			
 		
 			//
