@@ -109,7 +109,7 @@ public class Main extends Application {
 			for (int j = 0; j < 2; j++) {
 				for (int x = 0; x < 2; x++) {
 					for (int l = 0; l < 2; l++) {
-						imgv5[i][j][x][l] = new ImageView(img[11]);
+						imgv5[i][j][x][l] = new ImageView();
 						imgv5[i][j][x][l].setX(1050 + 150*i + 32*x);
 						imgv5[i][j][x][l].setY(100 + 250 * j + 168*l);
 						root.getChildren().addAll(imgv5[i][j][x][l]);
@@ -216,6 +216,22 @@ public class Main extends Application {
 					imgv2[i][j].setImage(img[0]);
 				}
 
+			}
+		}
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 1; j++) {
+				for (int l = 0; l < 2; l++) {
+					System.out.println(game.currentDraw.get(i).getTile(l).numberOfCrown);
+					System.out.println(game.currentDraw.get(i).dominoID);
+					if (game.currentDraw.get(i).getTile(l).numberOfCrown >= 1) {
+						imgv5[i][j][0][l].setImage(img[11]);
+
+						if (game.currentDraw.get(i).getTile(l).numberOfCrown == 2) {
+							imgv5[i][j][1][l].setImage(img[11]);
+						}
+					}
+				}
 			}
 		}
 	}
