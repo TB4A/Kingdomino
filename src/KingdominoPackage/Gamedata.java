@@ -183,27 +183,17 @@ public class Gamedata {
 ////////////////////////// interface //////////////////////////////////
 		
 		
-		public void playerPick(int playerID) {
+		public void playerPick(int playerID, int int_playerPick) {
 			//////////this method add the name of the player to the picked card and prevent it to be picked by an other player, before that it check if the picked card had been previously been picked if so it re asked 
 			// TODO Auto-generated method stub
-			int int_playerPick = 0;
-			while (true) {
 				System.out.println("player "+playerID+" :select a Domino between 0 and "+ (numberOfPlayer-1));
 				try {
-					@SuppressWarnings("resource")
-					Scanner sc_playerPick= new Scanner(System.in); //System.in is a standard input stream.
-					int_playerPick = sc_playerPick.nextInt(); //
 					if(currentDraw.get(int_playerPick).get(5) == null) {
-						break;
 					}
 				}
 				catch(Exception e) {
 					  //  Block of code to handle errors
 					}
-				/// check if valid
-
-				System.out.println("invalid domino");
-			}
 
 			/// add the PlayerID of the player to the selected domino
 			List<String> selectedDomino = currentDraw.get(int_playerPick);
