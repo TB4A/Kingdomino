@@ -107,7 +107,7 @@ public class Gamedata {
 	
 	
 	
-		public static List<Domino> sufflePile(List<Domino> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity 
+		public static List<Domino> shufflePile(List<Domino> dominoPile) { // shuffle the domino Pile while keeping on the header for clarity
 			//List<String> header = dominoPile.get(0);
 			//System.out.println((header));
 			dominoPile.remove(0);
@@ -188,7 +188,7 @@ public class Gamedata {
 			// TODO Auto-generated method stub
 				System.out.println("player "+playerID+" :select a Domino between 0 and "+ (numberOfPlayer-1));
 				try {
-					if(currentDraw.get(int_playerPick).get(5) == null) {
+					if(currentDraw.get(int_playerPick).getOwner() == null) {
 					}
 				}
 				catch(Exception e) {

@@ -1,4 +1,6 @@
-import java.io.IOException;
+package KingdominoPackage;
+
+import KingdominoPackage.Tile;
 
 public class Domino {
 	String[] ImportedDominoData;// prompt only

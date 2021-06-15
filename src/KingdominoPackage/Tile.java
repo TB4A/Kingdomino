@@ -1,4 +1,4 @@
-
+package KingdominoPackage;
 
 public class Tile{
 	
