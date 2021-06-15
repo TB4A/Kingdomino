@@ -41,7 +41,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Kingdomino");
 		primaryStage.setScene(new Scene(root, 1250, 750));
 
-		Image[] img = new Image[7];
+		Image[] img = new Image[11];
 		img[0] = new Image("file:prairie.png", 100,100, true, false);
 		img[1] = new Image("file:mines.png", 100,100, true, false);
 		img[2] = new Image("file:foret.png", 100,100, true, false);
@@ -49,6 +49,10 @@ public class Main extends Application {
 		img[4] = new Image("file:champs.png", 100,100, true, false);
 		img[5] = new Image("file:mer.png", 100,100, true, false);
 		img[6] = new Image("file:terrainTile1.png", 100,100, true, false);
+		img[7] = new Image("file:pieceBlue.png", 64,64, true, false);
+		img[8] = new Image("file:piecePurple.png", 64,64, true, false);
+		img[9] = new Image("file:pieceRed.png", 64,64, true, false);
+		img[10] = new Image("file:pieceYellow.png", 64,64, true, false);
 		ImageView[][] imgv = new ImageView[9][9];
 		ChoiceBox<Object> cb = new ChoiceBox<Object>(FXCollections.observableArrayList("Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"));
 		cb.setValue("Joueur 1");
@@ -82,6 +86,17 @@ public class Main extends Application {
 				root.getChildren().addAll(imgv3[i][j]);
 			}
 		}
+
+		ImageView[][] imgv4 = new ImageView[4][2];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 2; j++) {
+				imgv4[i][j] = new ImageView();
+				imgv4[i][j].setX(1068 + 150*i);
+				imgv4[i][j].setY(168 + 250 * j);
+				root.getChildren().addAll(imgv4[i][j]);
+			}
+		}
+
 		primaryStage.show();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(
@@ -94,45 +109,53 @@ public class Main extends Application {
 					System.out.println("0");
 					imgv[4][4].setImage(img[2]);
 					game.playerPick(currentplayerID,0);
+					imgv4[0][0].setImage(img[currentplayerID+7]);
 				}
 		);
 		imgv2[0][1].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("0");
 					root.getChildren().remove(imgv[4][4]);
 					game.playerPick(currentplayerID,0);
+					imgv4[0][0].setImage(img[currentplayerID+7]);
 				}
 		);
 
 		imgv2[1][0].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("1");
 					game.playerPick(currentplayerID,1);
+			imgv4[1][0].setImage(img[currentplayerID+7]);
 				}
 		);
 		imgv2[1][1].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("1");
 					game.playerPick(currentplayerID,1);
+			imgv4[1][0].setImage(img[currentplayerID+7]);
 				}
 		);
 
 		imgv2[2][0].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("2");
 					game.playerPick(currentplayerID,2);
+			imgv4[2][0].setImage(img[currentplayerID+7]);
 				}
 		);
 		imgv2[2][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("2");
 			game.playerPick(currentplayerID,2);
+			imgv4[2][0].setImage(img[currentplayerID+7]);
 				}
 		);
 
 		imgv2[3][0].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("3");
 			game.playerPick(currentplayerID,3);
+			imgv4[3][0].setImage(img[currentplayerID+7]);
 				}
 		);
 		imgv2[3][1].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("3");
 			game.playerPick(currentplayerID,3);
+			imgv4[3][0].setImage(img[currentplayerID+7]);
 				}
 		);
 
