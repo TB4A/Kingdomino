@@ -129,63 +129,63 @@ public class Main extends Application {
 		imgv2[0][0].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("0");
 			//imgv[4][4].setImage(img[2]);
-			if(game.playerPick(game.getCurrentPlayer(), 0)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 0)) {
 				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 		imgv2[0][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("0");
 			//root.getChildren().remove(imgv[4][4]);
-			if(game.playerPick(game.getCurrentPlayer(), 0)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 0)) {
 				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		}
 		);
 
 		imgv2[1][0].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("1");
-			if(game.playerPick(game.getCurrentPlayer(), 1)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 1)) {
 				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 		imgv2[1][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("1");
-			if(game.playerPick(game.getCurrentPlayer(), 1)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 1)) {
 				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 
 		imgv2[2][0].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("2");
-			if(game.playerPick(game.getCurrentPlayer(), 2)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 2)) {
 				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 		imgv2[2][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("2");
-			if(game.playerPick(game.getCurrentPlayer(), 2)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 2)) {
 				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 
 		imgv2[3][0].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("3");
-			if(game.playerPick(game.getCurrentPlayer(), 3)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 3)) {
 				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 		imgv2[3][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("3");
-			if(game.playerPick(game.getCurrentPlayer(), 3)) {
+			if(game.pick && game.playerPick(game.getCurrentPlayer(), 3)) {
 				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.changePlayer();
+				game.pick = false;
 			}
 		});
 
@@ -194,6 +194,14 @@ public class Main extends Application {
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("test");
 					//imgv[i][j].setImage(img[2]);
+					System.out.println(Math.ceil(e.getX()/100)-1);
+					System.out.println(Math.ceil(e.getY()/100)-1);
+					int[] position = {(int)(Math.ceil(e.getX()/100)-1),(int)Math.ceil(e.getY()/100)-1};
+					if (!game.pick && !game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
+						game.changePlayer();
+						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
+						game.pick = true;
+					}
 				});
 			}
 		}

@@ -22,6 +22,7 @@ public class Gamedata {
 	List<Player> player = new ArrayList<Player>();// initialize player list "containing the objects of the class Player"
 	int[] playerOrder;
 	int currentPlayer;
+	public boolean pick;
 	
 	
 	///////////////////////////////////////// constructor /////////////////////////////////////////////////////
@@ -46,6 +47,7 @@ public class Gamedata {
 			
 		}
 		currentPlayer = 0;
+		pick = true;
 	}
 	
 	///////////////////////////////////////// methodes /////////////////////////////////////////////////////
@@ -187,6 +189,8 @@ public class Gamedata {
 			currentPlayer++;
 			if (currentPlayer >= numberOfPlayer) {
 				currentPlayer = 0;
+				drawFromDrawPile();
+				setPlayerOrder();
 			}
 		}
 
@@ -232,8 +236,8 @@ public class Gamedata {
 			int[] position = new int[2];
 			int orientation = 90;
 			String orientationCardinal;
-			
-			//// event update orientation "console" need to be replace with gui 
+
+			//// event update orientation "console" need to be replace with gui
 			while(true) {
 				try{
 					// orientation

@@ -109,7 +109,7 @@ public class Player {
 		
 		return false;
 	}
-	public void placeLastSelectedInKingdomAsTile(int[] position,int orientation) {
+	public boolean placeLastSelectedInKingdomAsTile(int[] position,int orientation) {
 		// TODO Auto-generated method stub
 		
 		///Domino Pick during Last round
@@ -127,7 +127,7 @@ public class Player {
 		
 		//check if placement coordinates are valid
 		
-		if (checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {System.out.println("non-valid placement");return;}
+		if (checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {System.out.println("non-valid placement");return false;}
 		
 		// set coordinates of tile 1 and tile 2 if check succeeded
 		
@@ -141,6 +141,7 @@ public class Player {
 		
 		System.out.println(domino.tile0);
 		System.out.println(domino.tile1);
+		return true;
 		
 		
 	}
