@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 public class Main {
 
@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/////////ini
-		int entry_numberOfPlayer = 4;
+		int entry_numberOfPlayer = 2;
 		
 		
 		///[graph] each player will be prompted to write their name and king color 
@@ -21,23 +21,25 @@ public class Main {
 
 	private static void gameloop(int numberOfPlayer) {
 		// TODO Auto-generated method stub
-		while(true) { 			///////// Gameloop///////////
-			
-			/////////initialize the game object
-			Gamedata game = new Gamedata(numberOfPlayer);
+		
+		/////////initialize the game object
+		Gamedata game = new Gamedata(numberOfPlayer);
+		
+		while(true) { 		///////// Gameloop///////////
 			
 			game.drawFromDrawPile();
 			///[graph] drawn dominos appear on screen
 			System.out.println(game.currentDraw);
-			System.out.println(game.player.get(2).playerName);
+			//System.out.println(game.player.get(2).playerName);
 			int[] playerOrder=game.getPlayerOrder();
+			System.out.println(Arrays.toString(game.playerOrder));
 			for(int i = 0 ; i<playerOrder.length;i++) {
 				int currentplayerID = playerOrder[i];
 				game.playerPick(currentplayerID);
 				//game.kingdomCheck(i);
 				game.playerKingdomPlace(currentplayerID);
 			}
-			game.setPlayerOrder();
+			game.setPlayerOrder(); // set player order that will be use on the next loop
 		}
 	}
 	

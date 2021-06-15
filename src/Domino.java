@@ -3,13 +3,16 @@ import java.io.IOException;
 public class Domino {
 	String[] ImportedDominoData;// prompt only
 	Integer ownerID;
+	Player owner;
 	Integer dominoID;
+	Tile tile0;
+	Tile tile1;
 	///////////////////////////Constructor///////////////////////////
 	public Domino(String[] importData_splitedLine){
 		///// import redeable data for prompt only
 		this.ImportedDominoData = importData_splitedLine ;
 		
-		///// initialize the owner of the domino "ownerID"
+		///// initialize the owner of the domino "ownerID and ownerref"
 		this.ownerID = null;
 		
 		///// initialize the number of the domino "dominoID"
@@ -21,9 +24,9 @@ public class Domino {
 	
 		///// initialize Tile 0 "the origin"
 		try {
-		Tile tile0 = new Tile(Integer.parseInt(importData_splitedLine[0]),importData_splitedLine[1]);// create an object tile containing the biome and the number of crowns 
+		tile0 = new Tile(Integer.parseInt(importData_splitedLine[0]),importData_splitedLine[1],this);// create an object tile containing the biome and the number of crowns 
 		///// initialize Tile 1 "the orientation"
-		Tile tile1 = new Tile(Integer.parseInt(importData_splitedLine[2]),importData_splitedLine[3]);
+		tile1 = new Tile(Integer.parseInt(importData_splitedLine[2]),importData_splitedLine[3],this);
 		}
 		catch(Exception e) {}
 	}
@@ -38,14 +41,31 @@ public class Domino {
 		return this.dominoID;
 	}
 
-	public void setOwner(Integer playerID) {
+	public void setOwner(Player player) {
 		// TODO Auto-generated method stub
-		this.ownerID = playerID;
+		this.owner = player;
+		this.ownerID = player.playerID;
 	}
 	
-	public Integer getOwner() {
+	public Player getOwner() {
 		// TODO Auto-generated method stub
-		return this.ownerID;
+		return this.owner;
+	}
+	
+	public void setTileCoordinate() {
+		
+		
+	}
+	
+	public Tile getTile(int i) {	//use to gather Tile Data of the Domino
+		// TODO Auto-generated method stub
+		switch(i) {
+		case 0:
+			return this.tile0;
+		case 1:
+			return this.tile1;
+		}
+		return null;
 	}
 	
 }
