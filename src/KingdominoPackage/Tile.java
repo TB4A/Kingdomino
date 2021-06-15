@@ -1,4 +1,4 @@
-
+package KingdominoPackage;
 
 public class Tile{
 	
@@ -42,7 +42,7 @@ public class Tile{
 	
 	public void setGroupHandleOfTile(Group groupHandle) {// set a new grouphandle for the tile or set a new merged group of multiple tiles
 		// TODO Auto-generated method stub
-		// this methode set the group of the tile in the Tile class , and add the reference of tile to the assosiated Group object
+		// this methode set the group of the tile in the Tile class , and add the reference of tile to the assosiated KingdominoPackage.Group object
 		if(group == null) {// The only case of a Tile being null is when it hasnt found any neighbor yet ,else it mean that it might have multiple valid neighbor 
 			groupHandle.addTileToGroup(this);
 			this.group = groupHandle;
@@ -53,20 +53,20 @@ public class Tile{
 
 	}
 	
-	public Group mergeGroupHandleOfTile(Group group1 , Group group2) {// merge group of Tile object with given Group
-		// 1.update groups inside used Tile Object 2.remove legacy Group in the player group list 
+	public Group mergeGroupHandleOfTile(Group group1 , Group group2) {// merge group of Tile object with given KingdominoPackage.Group
+		// 1.update groups inside used Tile Object 2.remove legacy KingdominoPackage.Group in the player group list
 		Group newGroup = new Group(this);
 		parentDomino.getOwner().biomeGroupList.add(newGroup);// add newgroup to player's biomegrouplist
 		//1.update groups inside used Tile Object
 		for(int i=0;i<group1.biomeGroup.size();i++) {
-			newGroup.biomeGroup.add(group1.biomeGroup.get(i));//add tiles to the new Group Object
+			newGroup.biomeGroup.add(group1.biomeGroup.get(i));//add tiles to the new KingdominoPackage.Group Object
 			group1.biomeGroup.get(i).group = newGroup;//update all group arguments of old Tile object of old groups with new group
 			}
 		for(int i=0;i<group2.biomeGroup.size();i++) {
-			newGroup.biomeGroup.add(group2.biomeGroup.get(i));//add tiles to the new Group Object
+			newGroup.biomeGroup.add(group2.biomeGroup.get(i));//add tiles to the new KingdominoPackage.Group Object
 			group1.biomeGroup.get(i).group = newGroup;//update all group arguments of old Tile object of old groups with new group
 			}
-		//2. unfinished remove legacy Group in the player group list 
+		//2. unfinished remove legacy KingdominoPackage.Group in the player group list
 		newGroup.refreshTilesGroupOfCurrentGroup(); // set group of every Tile belonging to the new group as the new group
 		
 		parentDomino.getOwner().biomeGroupList.remove(group1);// remove no longeur used group from player's biomegrouplist

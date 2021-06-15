@@ -148,27 +148,27 @@ public class Main extends Application {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				//System.out.println(game.currentDraw.get(i).get(2*j+1));
-				if (game.currentDraw.get(i).get(2*j+1).equals("Foret")) {
+				//System.out.println(game.currentDraw.get(i).getTile(j).biome);
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Foret")) {
 					imgv2[i][j].setImage(img[2]);
 				}
-				if (game.currentDraw.get(i).get(2*j+1).equals("Champs")) {
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Champs")) {
 					imgv2[i][j].setImage(img[4]);
 				}
 
-				if (game.currentDraw.get(i).get(2*j+1).equals("Mine")) {
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Mine")) {
 					imgv2[i][j].setImage(img[1]);
 				}
 
-				if (game.currentDraw.get(i).get(2*j+1).equals("Montagne")) {
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Montagne")) {
 					imgv2[i][j].setImage(img[3]);
 				}
 
-				if (game.currentDraw.get(i).get(2*j+1).equals("Mer")) {
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Mer")) {
 					imgv2[i][j].setImage(img[5]);
 				}
 
-				if (game.currentDraw.get(i).get(2*j+1).equals("Prairie")) {
+				if (game.currentDraw.get(i).getTile(j).biome.equals("Prairie")) {
 					imgv2[i][j].setImage(img[0]);
 				}
 
