@@ -179,7 +179,20 @@ public class Player {
 		return false;
 	}
 
+	public int computePlayerScore() {
+		int score = 0;
+		for (Group i_group:biomeGroupList) {
+			int totalCrown = 0;
+			for (Tile j_tile:i_group.biomeGroup) { // for every tiles in the group we check how many crowns they are in total
+				totalCrown =+ j_tile.numberOfCrown;
+			}
+			score =+ totalCrown*i_group.biomeGroup.size();// multiplie the number of crown by the size of the group and sum all for every group
+		}
 		
+		
+		return score;
+		
+	}
 }
 
 
