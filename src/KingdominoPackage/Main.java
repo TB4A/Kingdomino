@@ -41,7 +41,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Kingdomino");
 		primaryStage.setScene(new Scene(root, 1250, 750));
 
-		Image[] img = new Image[11];
+		Image[] img = new Image[13];
 		img[0] = new Image("file:prairie.png", 100,100, true, false);
 		img[1] = new Image("file:mines.png", 100,100, true, false);
 		img[2] = new Image("file:foret.png", 100,100, true, false);
@@ -53,6 +53,8 @@ public class Main extends Application {
 		img[8] = new Image("file:piecePurple.png", 64,64, true, false);
 		img[9] = new Image("file:pieceRed.png", 64,64, true, false);
 		img[10] = new Image("file:pieceYellow.png", 64,64, true, false);
+		img[11] = new Image("file:crown.png", 32,32, true, false);
+		img[12] = new Image("file:castle_grey.png", 100,100, true, false);
 		ImageView[][] imgv = new ImageView[9][9];
 		ChoiceBox<Object> cb = new ChoiceBox<Object>(FXCollections.observableArrayList("Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"));
 		cb.setValue("Joueur 1");
@@ -66,6 +68,11 @@ public class Main extends Application {
 				root.getChildren().addAll(imgv[i][j]);
 			}
 		}
+
+		ImageView imgCastle = new ImageView(img[12]);
+		imgCastle.setX(500);
+		imgCastle.setY(500);
+		root.getChildren().addAll(imgCastle);
 
 		ImageView[][] imgv2 = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
@@ -94,6 +101,20 @@ public class Main extends Application {
 				imgv4[i][j].setX(1068 + 150*i);
 				imgv4[i][j].setY(168 + 250 * j);
 				root.getChildren().addAll(imgv4[i][j]);
+			}
+		}
+
+		ImageView[][][][] imgv5 = new ImageView[4][2][2][2];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 2; j++) {
+				for (int x = 0; x < 2; x++) {
+					for (int l = 0; l < 2; l++) {
+						imgv5[i][j][x][l] = new ImageView(img[11]);
+						imgv5[i][j][x][l].setX(1050 + 150*i + 32*x);
+						imgv5[i][j][x][l].setY(100 + 250 * j + 168*l);
+						root.getChildren().addAll(imgv5[i][j][x][l]);
+					}
+				}
 			}
 		}
 
