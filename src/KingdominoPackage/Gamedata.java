@@ -21,6 +21,7 @@ public class Gamedata {
 	List<Domino> currentDraw = new ArrayList<>() ;
 	List<Player> player = new ArrayList<Player>();// initialize player list "containing the objects of the class Player"
 	int[] playerOrder;
+	int currentPlayer;
 	
 	
 	///////////////////////////////////////// constructor /////////////////////////////////////////////////////
@@ -44,6 +45,7 @@ public class Gamedata {
 			player.add(new Player(playerID,playerName,playerKingColor));//add player data to the player object list to be able to access them using game.player("playerID"). 
 			
 		}
+		currentPlayer = 0;
 	}
 	
 	///////////////////////////////////////// methodes /////////////////////////////////////////////////////
@@ -180,16 +182,26 @@ public class Gamedata {
 		public int[] getPlayerOrder() {
 			return playerOrder;
 		}
+
+		public void changePlayer() {
+			currentPlayer++;
+			if (currentPlayer >= numberOfPlayer) {
+				currentPlayer = 0;
+			}
+		}
+
+		public int getCurrentPlayer() { return playerOrder[currentPlayer]; }
 		
 ////////////////////////// interface //////////////////////////////////
 		
 		
-		public void playerPick(int playerID,int playerPick/*one of the N of the CurrentDraw's card going from 0 to N*/) {
+		public boolean playerPick(int playerID,int playerPick/*one of the N of the CurrentDraw's card going from 0 to N*/) {
 //////////this method add the name of the player to the picked card and prevent it to be picked by an other player, before that it check if the picked card had been previously been picked if so it re asked 
 			// TODO Auto-generated method stub
 				System.out.println("player "+playerID+" :select a Domino between 0 and "+ (numberOfPlayer-1));
 				try {
-					if(currentDraw.get(playerPick).getOwner() == null) {
+					if(currentDraw.get(playerPick).getOwner() != null) {
+						return false;
 					}
 				}
 				catch(Exception e) {
@@ -207,6 +219,7 @@ public class Gamedata {
 			// send a copy of the domino to the player ""Inventory" DominoSelectionPile" to be placed the next round if he can place it
 			player.get(playerID).addToSelectionPile(selectedDomino);
 			System.out.println("finnishing Player "+playerID+" Pick....");
+			return true;
 		}
 
 		public Boolean kingdomCheck(int PlayerID) {

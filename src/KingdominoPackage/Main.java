@@ -127,58 +127,67 @@ public class Main extends Application {
 		);
 
 		imgv2[0][0].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("0");
-					imgv[4][4].setImage(img[2]);
-					game.playerPick(currentplayerID,0);
-					imgv4[0][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("0");
+			//imgv[4][4].setImage(img[2]);
+			if(game.playerPick(game.getCurrentPlayer(), 0)) {
+				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 		imgv2[0][1].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("0");
-					root.getChildren().remove(imgv[4][4]);
-					game.playerPick(currentplayerID,0);
-					imgv4[0][0].setImage(img[currentplayerID+7]);
-				}
+			System.out.println("0");
+			//root.getChildren().remove(imgv[4][4]);
+			if(game.playerPick(game.getCurrentPlayer(), 0)) {
+				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		}
 		);
 
 		imgv2[1][0].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("1");
-					game.playerPick(currentplayerID,1);
-			imgv4[1][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("1");
+			if(game.playerPick(game.getCurrentPlayer(), 1)) {
+				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 		imgv2[1][1].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("1");
-					game.playerPick(currentplayerID,1);
-			imgv4[1][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("1");
+			if(game.playerPick(game.getCurrentPlayer(), 1)) {
+				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 
 		imgv2[2][0].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("2");
-					game.playerPick(currentplayerID,2);
-			imgv4[2][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("2");
+			if(game.playerPick(game.getCurrentPlayer(), 2)) {
+				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 		imgv2[2][1].setOnMousePressed((MouseEvent e) -> {
 			System.out.println("2");
-			game.playerPick(currentplayerID,2);
-			imgv4[2][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			if(game.playerPick(game.getCurrentPlayer(), 2)) {
+				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 
 		imgv2[3][0].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("3");
-			game.playerPick(currentplayerID,3);
-			imgv4[3][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("3");
+			if(game.playerPick(game.getCurrentPlayer(), 3)) {
+				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 		imgv2[3][1].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("3");
-			game.playerPick(currentplayerID,3);
-			imgv4[3][0].setImage(img[currentplayerID+7]);
-				}
-		);
+			System.out.println("3");
+			if(game.playerPick(game.getCurrentPlayer(), 3)) {
+				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
+				game.changePlayer();
+			}
+		});
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -235,6 +244,7 @@ public class Main extends Application {
 			}
 		}
 	}
+
 
 
 	public static void main(String[] args) {
