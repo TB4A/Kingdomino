@@ -123,7 +123,7 @@ public class Gamedata {
 
 		public void drawFromDrawPile() {
 			// TODO Auto-generated method stub
-			
+			currentDraw.clear();// make sure the current draw pile is empty for the incoming draw
 			for(int i = 0 ; i< numberOfPlayer;i++) {
 				currentDraw.add(i, dominoPile.get(0));
 				dominoPile.remove(0);
@@ -170,10 +170,12 @@ public class Gamedata {
 		
 		public void setPlayerOrder() {
 			// TODO Auto-generated method stub
+			System.out.println("setting Player Order as : ");
 			for(int i = 0 ; i<currentDraw.size();i++) {
-				playerOrder[i] = currentDraw.get(i).getOwner();
+				this.playerOrder[i] = currentDraw.get(i).getOwner().playerID;
+				System.out.println(this.playerOrder[i]+" - ");
 			}
-							
+
 		}
 		
 		public int[] getPlayerOrder() {
@@ -199,7 +201,7 @@ public class Gamedata {
 			Domino selectedDomino = currentDraw.get(int_playerPick);
 			//selectedDomino.remove(5);// 5 is the index of the playerID column
 			//System.out.println("colum removed");
-			selectedDomino.setOwner(playerID);//selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
+			selectedDomino.setOwner(player.get(playerID));//selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
 			//currentDraw.remove(int_playerPick);
 			currentDraw.set(int_playerPick, selectedDomino);
 			
