@@ -142,6 +142,16 @@ public class Main extends Application {
 			root.getChildren().addAll(imgvDominoToPlace[i]);
 		}
 
+		ImageView[][] imgvDominoToPlaceCrown = new ImageView[2][2];
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				imgvDominoToPlaceCrown[i][j] = new ImageView();
+				imgvDominoToPlaceCrown[i][j].setX(1200+100*i);
+				imgvDominoToPlaceCrown[i][j].setY(650);
+				root.getChildren().addAll(imgvDominoToPlaceCrown[i][j]);
+			}
+		}
+
 		primaryStage.show();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(
@@ -172,6 +182,10 @@ public class Main extends Application {
 			for (int l = 0; l < 2; l++) {
 				imgvDominoToPlace[l].setX(1320 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 				imgvDominoToPlace[l].setY(675 - 100 * l * Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][0].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][0].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][1].setX(1352+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][1].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 			}
 		});
 		
@@ -181,6 +195,10 @@ public class Main extends Application {
 			for (int l = 0; l < 2; l++) {
 				imgvDominoToPlace[l].setX(1320 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 				imgvDominoToPlace[l].setY(675 - 100 * l * Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][0].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][0].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][1].setX(1352+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlaceCrown[l][1].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 			}
 		});
 		
@@ -201,6 +219,19 @@ public class Main extends Application {
 								imgvDominoToPlace[l].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlace[l].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlace[l].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).biome)]);
+								imgvDominoToPlaceCrown[l][0].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlaceCrown[l][0].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlaceCrown[l][1].setX(1352+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlaceCrown[l][1].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+
+								if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).numberOfCrown >= 1) {
+									imgvDominoToPlaceCrown[l][0].setImage(img[11]);
+
+									if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).numberOfCrown == 2) {
+										imgvDominoToPlaceCrown[l][1].setImage(img[11]);
+									}
+								}
+
 							}
 						}
 
@@ -280,6 +311,10 @@ public class Main extends Application {
 						buttonRotateLeft.setVisible(false);
 						imgvDominoToPlace[0].setImage(null);
 						imgvDominoToPlace[1].setImage(null);
+						imgvDominoToPlaceCrown[0][0].setImage(null);
+						imgvDominoToPlaceCrown[0][1].setImage(null);
+						imgvDominoToPlaceCrown[1][0].setImage(null);
+						imgvDominoToPlaceCrown[1][1].setImage(null);
 					}
 				});
 			}
