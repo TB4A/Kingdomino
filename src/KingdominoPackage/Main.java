@@ -153,11 +153,19 @@ public class Main extends Application {
 		buttonRotateRight.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+			for (int l = 0; l < 2; l++) {
+				imgvDominoToPlace[l].setX(1300 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlace[l].setY(600 + 100 * l * Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+			}
 		});
 		
 		buttonRotateLeft.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+			for (int l = 0; l < 2; l++) {
+				imgvDominoToPlace[l].setX(1300+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlace[l].setY(600+100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+			}
 		});
 		
 		for (int i = 0; i < 4; i++) {
@@ -173,8 +181,11 @@ public class Main extends Application {
 							buttonRotateRight.setVisible(true);
 							buttonRotateLeft.setVisible(true);
 							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
-							imgvDominoToPlace[0].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(0).biome)]);
-							imgvDominoToPlace[1].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(1).biome)]);
+							for (int l = 0; l < 2; l++) {
+								imgvDominoToPlace[l].setX(1300+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setY(600+100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).biome)]);
+							}
 						}
 
 						else {
@@ -251,6 +262,8 @@ public class Main extends Application {
 						game.pick = true;//allow player to pick domino
 						buttonRotateRight.setVisible(false);
 						buttonRotateLeft.setVisible(false);
+						imgvDominoToPlace[0].setImage(null);
+						imgvDominoToPlace[1].setImage(null);
 					}
 				});
 			}
