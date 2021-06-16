@@ -147,6 +147,10 @@ public class Main extends Application {
 										for (int l = 0; l < 2; l++) {
 											imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
 											imgv5[m][0][x][l].setImage(null);
+											if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
+												imgv5[m][0][x][l].setImage(img[11]);
+											}
+
 										}
 									}
 								}
@@ -154,7 +158,7 @@ public class Main extends Application {
 								for (int l = 0; l < 4; l++) {
 									for (int m = 0; m < 2; m++) {
 										imgv3[l][m].setImage(imgv2[l][m].getImage());
-										imgv2[l][m].setImage(null);
+										imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 									}
 								}
 							}
@@ -186,6 +190,9 @@ public class Main extends Application {
 									for (int l = 0; l < 2; l++) {
 										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
 										imgv5[m][0][x][l].setImage(null);
+										if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
+											imgv5[m][0][x][l].setImage(img[11]);
+										}
 									}
 								}
 							}
@@ -193,7 +200,7 @@ public class Main extends Application {
 							for (int l = 0; l < 4; l++) {
 								for (int m = 0; m < 2; m++) {
 									imgv3[l][m].setImage(imgv2[l][m].getImage());
-									imgv2[l][m].setImage(null);
+									imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 								}
 							}
 						}
@@ -207,29 +214,7 @@ public class Main extends Application {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				//System.out.println(game.currentDraw.get(i).getTile(j).biome);
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Foret")) {
-					imgv2[i][j].setImage(img[2]);
-				}
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Champs")) {
-					imgv2[i][j].setImage(img[4]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Mine")) {
-					imgv2[i][j].setImage(img[1]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Montagne")) {
-					imgv2[i][j].setImage(img[3]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Mer")) {
-					imgv2[i][j].setImage(img[5]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Prairie")) {
-					imgv2[i][j].setImage(img[0]);
-				}
+				imgv2[i][j].setImage(img[switchTile(game.currentDraw.get(i).getTile(j).biome)]);
 
 			}
 		}
@@ -251,6 +236,24 @@ public class Main extends Application {
 		}
 	}
 
+	private int switchTile(String biome) {
+		int biomeID = 0;
+		switch(biome) {
+			case "Prairie": biomeID = 0;
+				break;
+			case "Mine": biomeID = 1;
+				break;
+			case "Foret": biomeID = 2;
+				break;
+			case "Montagne": biomeID = 3;
+				break;
+			case "Champs": biomeID = 4;
+				break;
+			case "Mer": biomeID = 5;
+				break;
+		}
+		return biomeID;
+	}
 
 
 	public static void main(String[] args) {
