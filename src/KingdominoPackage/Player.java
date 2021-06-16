@@ -92,15 +92,14 @@ public class Player {
 		
 
 		
-		for (int side = 0;side<2;side++) { // pass on both tiles of a domino
-			
-				
+		for (int side = 0;side<2;side++) { // pass on both tiles of a domino	
 			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
-				System.out.println("Procesing overlap with tile "+kingdom.get(i).getTile(side).biome+ "at x = "+kingdom.get(i).getTile(side).x+" ,y = "+kingdom.get(i).getTile(side).y);
+				System.out.println("Procesing overlap with tile "+kingdom.get(i).getTile(side).biome+ " at x = "+kingdom.get(i).getTile(side).x+" ,y = "+kingdom.get(i).getTile(side).y);
 				// tile of int side check
 					// not overlapping anything
+				System.out.println("...with x = "+ x_tile[side] +" ,y = "+y_tile[side]);
 				if((dominoOfKingdom.tile0.x == x_tile[side]) && (dominoOfKingdom.tile0.y == y_tile[side])) {
 					System.out.println("overlaping on tile 0");
 					return false;
@@ -111,7 +110,8 @@ public class Player {
 					}
 				
 				}
-			
+		}
+		for (int side = 0;side<2;side++) { 
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
 				//check for neighbour at a given y on the left and right of Tile0 and Tile1
