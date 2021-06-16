@@ -29,7 +29,7 @@ public class Main extends Application {
 			entry_numberOfPlayer0 = sc.nextInt();
 		}
 
-		int entry_numberOfPlayer =entry_numberOfPlayer0;
+		int entry_numberOfPlayer = entry_numberOfPlayer0;
 
 		///[graph] each player will be prompted to write their name and king color
 		//gameloop(entry_numberOfPlayer);
@@ -78,6 +78,15 @@ public class Main extends Application {
 		labelJ.setGraphic(new ImageView(img[7]));
 		labelJ.setLayoutX(500);
 		root.getChildren().addAll(labelJ);
+
+		Label[] labelPlayer = new Label[entry_numberOfPlayer];
+		for (int i = 0; i < entry_numberOfPlayer; i++) {
+			System.out.println("kkjfkjkjdfkbjdfkj");
+			labelPlayer[i] = new Label();
+			labelPlayer[i].setLayoutX(1500);
+			labelPlayer[i].setLayoutY(900+25*i);
+			root.getChildren().addAll(labelPlayer[i]);
+		}
 
 		Button buttonRotateRight = new Button("tourner vers la droite");
 		buttonRotateRight.setLayoutX(1450);
@@ -345,6 +354,11 @@ public class Main extends Application {
 							labelJ.setGraphic(new ImageView(img[7+ game.getCurrentPlayer()]));
 							labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 							if (game.currentPlayer == 0) {
+								if (game.round > 12) {
+									for (int l = 0; l < entry_numberOfPlayer; l++) {
+										labelPlayer[l].setText("Joueur "+ (l+1)+" : "+game.player.get(l).computePlayerScore());
+									}
+								}
 								for (int l = 0; l < entry_numberOfPlayer; l++) {
 									imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
 									imgvPawn[l][0].setImage(null);

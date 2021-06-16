@@ -23,6 +23,7 @@ public class Gamedata {
 	int[] playerOrder;
 	public int currentPlayer;
 	public boolean pick;
+	int round = 0;
 	
 	
 	///////////////////////////////////////// constructor /////////////////////////////////////////////////////
@@ -191,6 +192,7 @@ public class Gamedata {
 				currentPlayer = 0;
 				setPlayerOrder(); // setPlayerOrder should be before DrawFromDrawPile because play order is dependent on player's pick of last turn
 				drawFromDrawPile();
+				round++;
 			}
 		}
 		
@@ -202,6 +204,7 @@ public class Gamedata {
 				
 				setPlayerOrder(); // setPlayerOrder should be before DrawFromDrawPile because play order is dependent on player's pick of last turn
 				drawFromDrawPile();
+				round++;
 			}
 		}
 
