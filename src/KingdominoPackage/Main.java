@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -61,6 +62,11 @@ public class Main extends Application {
 		cb.setValue("Joueur 1");
 		System.out.println(cb.getValue());
 		root.getChildren().addAll(cb);
+
+		Label labelJ = new Label("Joueur 1");
+		labelJ.setGraphic(new ImageView(img[7]));
+		labelJ.setLayoutX(500);
+		root.getChildren().addAll(labelJ);
 
 		Button buttonRotateRight = new Button("tourner vers la droite");
 		buttonRotateRight.setLayoutX(1450);
@@ -215,6 +221,8 @@ public class Main extends Application {
 
 		buttonPass.setOnAction(e -> {
 			game.forceNextPlayer();
+			labelJ.setGraphic(new ImageView(img[7+ game.getCurrentPlayer()]));
+			labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 			if (game.currentPlayer == 0) {
 				for (int l = 0; l < 4; l++) {
 					imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
@@ -315,6 +323,8 @@ public class Main extends Application {
 
 						else {
 							game.changePlayer();
+							labelJ.setGraphic(new ImageView(img[7+ game.getCurrentPlayer()]));
+							labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 							if (game.currentPlayer == 0) {
 								for (int l = 0; l < 4; l++) {
 									imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
@@ -358,6 +368,8 @@ public class Main extends Application {
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)) {
 						//imgvKingdom[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
+						labelJ.setGraphic(new ImageView(img[7+ game.getCurrentPlayer()]));
+						labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 						if (game.currentPlayer == 0) {
 							for (int l = 0; l < 4; l++) {
 								imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
