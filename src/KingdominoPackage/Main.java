@@ -62,12 +62,18 @@ public class Main extends Application {
 		System.out.println(cb.getValue());
 		root.getChildren().addAll(cb);
 
-		Button button = new Button("Rotation");
-		button.setLayoutX(1300);
-		button.setLayoutY(600);
-		button.setVisible(false);
-		root.getChildren().addAll(button);
+		Button buttonRotateRight = new Button("tourner vers la droite");
+		buttonRotateRight.setLayoutX(1150);
+		buttonRotateRight.setLayoutY(800);
+		buttonRotateRight.setVisible(false);
+		root.getChildren().addAll(buttonRotateRight);
 
+		Button buttonRotateLeft = new Button("tourner vers la droite");
+		buttonRotateLeft.setLayoutX(1450);
+		buttonRotateLeft.setLayoutY(800);
+		buttonRotateLeft.setVisible(false);
+		root.getChildren().addAll(buttonRotateLeft);
+		
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				imgv[i][j] = new ImageView(img[6]);
@@ -134,11 +140,16 @@ public class Main extends Application {
 				}
 		);
 
-		button.setOnAction(e -> {
+		buttonRotateRight.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
 		});
-
+		
+		buttonRotateLeft.setOnAction(e -> {
+			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
+			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+		});
+		
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
 				int lasti = i;
@@ -146,7 +157,7 @@ public class Main extends Application {
 					System.out.println(lasti);
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
-						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; button.setVisible(true);}
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; buttonRotateRight.setVisible(true);buttonRotateLeft.setVisible(true);}
 						else {
 							game.changePlayer();
 							if (game.currentPlayer == 0) {
@@ -219,7 +230,8 @@ public class Main extends Application {
 						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
-						button.setVisible(false);
+						buttonRotateRight.setVisible(false);
+						buttonRotateLeft.setVisible(false);
 					}
 				});
 			}
