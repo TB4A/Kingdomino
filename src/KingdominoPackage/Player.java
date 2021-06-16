@@ -15,7 +15,7 @@ public class Player {
 	List<Group> biomeGroupList;//contain every valid biome group that will be used to count points later on
 	List<Domino> selectedDominoPile	;
 	
-	int desiredSelectedDominoRotation;
+	int desiredSelectedDominoRotation = 90;
 	int[] desiredSelectedDominoPosition;
 	///////////////////////////////////////// constructor /////////////////////////////////////////////////////
 	public Player(int entry_playerID,String entry_playerName,String entry_playerKingColor) {

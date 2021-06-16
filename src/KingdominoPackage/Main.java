@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,6 +61,13 @@ public class Main extends Application {
 		cb.setValue("Joueur 1");
 		System.out.println(cb.getValue());
 		root.getChildren().addAll(cb);
+
+		Button button = new Button("Rotation");
+		button.setLayoutX(1300);
+		button.setLayoutY(600);
+		button.setVisible(false);
+		root.getChildren().addAll(button);
+
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				imgv[i][j] = new ImageView(img[6]);
@@ -126,6 +134,11 @@ public class Main extends Application {
 				}
 		);
 
+		button.setOnAction(e -> {
+			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
+			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+		});
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
 				int lasti = i;
@@ -133,7 +146,7 @@ public class Main extends Application {
 					System.out.println(lasti);
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
-						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; button.setVisible(true);}
 						else {
 							game.changePlayer();
 							if (game.currentPlayer == 0) {
@@ -176,7 +189,7 @@ public class Main extends Application {
 				int lastj = j;
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
 					int[] position = {lasti-4,-(lastj-4)};// use negative of y because of javafx inverting y axis
-					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
+					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)) {
 						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
 						if (game.currentPlayer == 0) {
@@ -206,6 +219,7 @@ public class Main extends Application {
 						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
+						button.setVisible(false);
 					}
 				});
 			}
