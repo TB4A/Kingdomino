@@ -9,7 +9,6 @@ public class Player {
 	int playerID;
 	String playerName;
 	String playerKingColor;
-	Tile kingTile;
 	Domino kingDomino;
 	List<Domino> kingdom;
 	List<Group> biomeGroupList;//contain every valid biome group that will be used to count points later on

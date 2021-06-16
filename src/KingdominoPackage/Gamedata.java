@@ -237,12 +237,8 @@ public class Gamedata {
 			return true;
 		}
 
-		public Boolean kingdomCheck(int PlayerID) {
-			// TODO Auto-generated method stub
-			return false;
-		}
 
-		public void playerKingdomPlace(int playerID) {
+		public void playerKingdomPlace(int playerID) {	//this methode is no longer used 
 			// TODO Auto-generated method stub
 			int[] position = new int[2];
 			int orientation = 90;
