@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,6 +61,13 @@ public class Main extends Application {
 		cb.setValue("Joueur 1");
 		System.out.println(cb.getValue());
 		root.getChildren().addAll(cb);
+
+		Button button = new Button("Rotation");
+		button.setLayoutX(1300);
+		button.setLayoutY(600);
+		button.setVisible(false);
+		root.getChildren().addAll(button);
+
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				imgv[i][j] = new ImageView(img[6]);
@@ -126,6 +134,11 @@ public class Main extends Application {
 				}
 		);
 
+		button.setOnAction(e -> {
+			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
+			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+		});
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
 				int lasti = i;
@@ -133,7 +146,7 @@ public class Main extends Application {
 					System.out.println(lasti);
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
-						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; button.setVisible(true);}
 						else {
 							game.changePlayer();
 							if (game.currentPlayer == 0) {
@@ -147,6 +160,10 @@ public class Main extends Application {
 										for (int l = 0; l < 2; l++) {
 											imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
 											imgv5[m][0][x][l].setImage(null);
+											if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
+												imgv5[m][0][x][l].setImage(img[11]);
+											}
+
 										}
 									}
 								}
@@ -154,7 +171,7 @@ public class Main extends Application {
 								for (int l = 0; l < 4; l++) {
 									for (int m = 0; m < 2; m++) {
 										imgv3[l][m].setImage(imgv2[l][m].getImage());
-										imgv2[l][m].setImage(null);
+										imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 									}
 								}
 							}
@@ -172,7 +189,7 @@ public class Main extends Application {
 				int lastj = j;
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
 					int[] position = {lasti-4,-(lastj-4)};// use negative of y because of javafx inverting y axis
-					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
+					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)) {
 						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
 						if (game.currentPlayer == 0) {
@@ -186,6 +203,9 @@ public class Main extends Application {
 									for (int l = 0; l < 2; l++) {
 										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
 										imgv5[m][0][x][l].setImage(null);
+										if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
+											imgv5[m][0][x][l].setImage(img[11]);
+										}
 									}
 								}
 							}
@@ -193,12 +213,13 @@ public class Main extends Application {
 							for (int l = 0; l < 4; l++) {
 								for (int m = 0; m < 2; m++) {
 									imgv3[l][m].setImage(imgv2[l][m].getImage());
-									imgv2[l][m].setImage(null);
+									imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 								}
 							}
 						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
+						button.setVisible(false);
 					}
 				});
 			}
@@ -207,29 +228,7 @@ public class Main extends Application {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				//System.out.println(game.currentDraw.get(i).getTile(j).biome);
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Foret")) {
-					imgv2[i][j].setImage(img[2]);
-				}
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Champs")) {
-					imgv2[i][j].setImage(img[4]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Mine")) {
-					imgv2[i][j].setImage(img[1]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Montagne")) {
-					imgv2[i][j].setImage(img[3]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Mer")) {
-					imgv2[i][j].setImage(img[5]);
-				}
-
-				if (game.currentDraw.get(i).getTile(j).biome.equals("Prairie")) {
-					imgv2[i][j].setImage(img[0]);
-				}
+				imgv2[i][j].setImage(img[switchTile(game.currentDraw.get(i).getTile(j).biome)]);
 
 			}
 		}
@@ -251,6 +250,24 @@ public class Main extends Application {
 		}
 	}
 
+	private int switchTile(String biome) {
+		int biomeID = 0;
+		switch(biome) {
+			case "Prairie": biomeID = 0;
+				break;
+			case "Mine": biomeID = 1;
+				break;
+			case "Foret": biomeID = 2;
+				break;
+			case "Montagne": biomeID = 3;
+				break;
+			case "Champs": biomeID = 4;
+				break;
+			case "Mer": biomeID = 5;
+				break;
+		}
+		return biomeID;
+	}
 
 
 	public static void main(String[] args) {
