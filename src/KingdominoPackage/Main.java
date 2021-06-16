@@ -63,13 +63,13 @@ public class Main extends Application {
 		root.getChildren().addAll(cb);
 
 		Button buttonRotateRight = new Button("tourner vers la droite");
-		buttonRotateRight.setLayoutX(1150);
+		buttonRotateRight.setLayoutX(1450);
 		buttonRotateRight.setLayoutY(800);
 		buttonRotateRight.setVisible(false);
 		root.getChildren().addAll(buttonRotateRight);
 
-		Button buttonRotateLeft = new Button("tourner vers la droite");
-		buttonRotateLeft.setLayoutX(1450);
+		Button buttonRotateLeft = new Button("tourner vers la gauche");
+		buttonRotateLeft.setLayoutX(1150);
 		buttonRotateLeft.setLayoutY(800);
 		buttonRotateLeft.setVisible(false);
 		root.getChildren().addAll(buttonRotateLeft);
