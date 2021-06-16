@@ -157,13 +157,12 @@ public class Main extends Application {
 						}
 					}
 					for (Domino domino: game.player.get((Integer) newVal).kingdom) {
-						System.out.println("test");
 						int x0 = domino.tile0.x+4;
 						int y0 = -domino.tile0.y+4;
 						String biome0 = domino.tile0.biome;
 						imgvKingdom[x0][y0].setImage(img[switchTile(biome0)]);
 						int x1 = domino.tile1.x+4;
-						int y1 = domino.tile1.y+4;
+						int y1 = -domino.tile1.y+4;
 						String biome1 = domino.tile1.biome;
 						imgvKingdom[x1][y1].setImage(img[switchTile(biome1)]);
 					}
