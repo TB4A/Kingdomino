@@ -75,9 +75,6 @@ public class Player {
 		y_tile[0] = y_tile0;
 		y_tile[1] = y_tile1;
 		
-		int x_kingTile = this.kingTile.x; 
-		int y_kingTile = this.kingTile.y;
-		
 		Tile[] testedDomino_tile = {testedDomino.tile0,testedDomino.tile1};// ini testdomino as array for fast loop access
 		//int numberOfNeighbour = 0;
 		//int addedPoints = 0;
@@ -86,11 +83,6 @@ public class Player {
 		
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino
 			
-			if((((kingTile.x + 1 == x_tile[side] || kingTile.x - 1== x_tile[side] )))&&(kingTile.y == y_tile[side])){
-				return true;}
-			
-			if((((kingTile.y + 1 == x_tile[side] || kingTile.y - 1== x_tile[side] )))&&(kingTile.x == y_tile[side])){
-				return true;}
 				
 			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
@@ -98,9 +90,11 @@ public class Player {
 				// tile of int side check
 					// not overlapping anything
 				if((dominoOfKingdom.tile0.x == x_tile[side]) && (dominoOfKingdom.tile0.y == y_tile[side])) {
+					System.out.println("overlaping on tile 0");
 					return false;
 				}
 				if((dominoOfKingdom.tile1.x == x_tile[side]) && (dominoOfKingdom.tile1.y == y_tile[side])) {
+					System.out.println("overlaping on tile 1");
 					return false;
 				}
 					//check for neighbour at a given y on the left and right of the Tile
@@ -119,8 +113,26 @@ public class Player {
 				}
 				
 			}
+			
 		}
 		
+		for (int side = 0;side<2;side++) {
+		// check if one of the side of a domino is touching the kingTile if so , the domino can be place
+		if((kingTile.x + 1 == x_tile[side] || kingTile.x - 1== x_tile[side] )&&(kingTile.y == y_tile[side])){
+			System.out.println("y_tile : "+ y_tile[side]);
+			System.out.println("horizontal king neighbor");
+			return true;}
+		
+		if((kingTile.y + 1 == y_tile[side] || kingTile.y - 1== y_tile[side] )&&(kingTile.x == x_tile[side])){
+			System.out.println("y_tile : "+ x_tile[side]);
+			System.out.println("vertival king neighbor");
+			return true;}
+		}
+		System.out.println("y_tile1 : "+ y_tile[1]);
+		System.out.println("x_tile1 : "+ x_tile[1]);
+		System.out.println("y_tile0 : "+ y_tile[0]);
+		System.out.println("x_tile0 : "+ x_tile[0]);
+		System.out.println("CheckPlacement : no neighbor found");
 		
 		return false;
 	}
@@ -134,11 +146,15 @@ public class Player {
 		
 			//Tile0
 		int x_tile0 = position[0];
+		System.out.println(x_tile0 +" was passed as x value for placement of tile0");
 		int y_tile0 = position[1];
+		System.out.println(y_tile0 +" was passed as y value for placement of tile0");
 		
 			//Tile1
-		int x_tile1 = Math.toIntExact((position[0]+Math.round(Math.cos(Math.toRadians(this.desiredSelectedDominoRotation)))));
-		int y_tile1 = Math.toIntExact(position[0]+Math.round(Math.sin(Math.toRadians(this.desiredSelectedDominoRotation))));
+		int x_tile1 = x_tile0 + Math.toIntExact(Math.round(Math.cos(Math.toRadians(this.desiredSelectedDominoRotation)))); // position relative to base Tile
+		System.out.println("orientation" + this.desiredSelectedDominoRotation);
+		System.out.println((Math.round(Math.cos(Math.toRadians(this.desiredSelectedDominoRotation))))+" cos oritentation");
+		int y_tile1 = y_tile0 + Math.toIntExact(Math.round(Math.sin(Math.toRadians(this.desiredSelectedDominoRotation))));
 		
 		//check if placement coordinates are valid
 		

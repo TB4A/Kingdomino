@@ -146,7 +146,7 @@ public class Main extends Application {
 				int lasti = i;
 				int lastj = j;
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
-					int[] position = {lasti-4,lastj-4};
+					int[] position = {lasti-4,-(lastj-4)};// use negative of y because of javafx inverting y axis
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
 						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
