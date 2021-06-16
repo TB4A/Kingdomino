@@ -131,7 +131,9 @@ public class Main extends Application {
 			//imgv[4][4].setImage(img[2]);
 			if(game.pick && game.playerPick(game.getCurrentPlayer(), 0)) {
 				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
+				if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
+				else {game.changePlayer();}
+
 			}
 		});
 		imgv2[0][1].setOnMousePressed((MouseEvent e) -> {
@@ -192,16 +194,18 @@ public class Main extends Application {
 		// for every location on the kingdom
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
+				int lasti = i;
+				int lastj = j;
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
 					System.out.println("test");
-					//imgv[i][j].setImage(img[2]);
+					imgv[lasti][lastj].setImage(img[2]);
 					System.out.println(Math.ceil(e.getX()/100)-1);
 					System.out.println(Math.ceil(e.getY()/100)-1);
 					int[] position = {(int)(Math.ceil(e.getX()/100)-1),(int)Math.ceil(e.getY()/100)-1};
 					if (!game.pick && !game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
 						game.changePlayer();
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
-						game.pick = true;
+						game.pick = true;//allow player to pick domino
 					}
 				});
 			}

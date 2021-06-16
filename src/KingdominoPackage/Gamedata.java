@@ -130,7 +130,7 @@ public class Gamedata {
 			for(int i = 0 ; i< numberOfPlayer;i++) {
 				currentDraw.add(i, dominoPile.get(0));
 				dominoPile.remove(0);
-				
+			
 			}
 			
 			setCurrentDraw(sortDraw(currentDraw)); // sort drafted dominos by their number using the sortDraw methode , then assign the sortedDraw to the currentDraw attribute 
