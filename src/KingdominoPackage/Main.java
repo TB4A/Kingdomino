@@ -211,7 +211,7 @@ public class Main extends Application {
 		);
 
 		buttonRotateRight.setOnAction(e -> {
-			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
+			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
 			for (int l = 0; l < 2; l++) {
 				imgvDominoToPlace[l].setX(1320 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
@@ -224,7 +224,7 @@ public class Main extends Application {
 		});
 		
 		buttonRotateLeft.setOnAction(e -> {
-			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
+			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
 			for (int l = 0; l < 2; l++) {
 				imgvDominoToPlace[l].setX(1320 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
@@ -250,8 +250,8 @@ public class Main extends Application {
 							buttonRotateLeft.setVisible(true);
 							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
 							for (int l = 0; l < 2; l++) {
-								imgvDominoToPlace[l].setX(1300+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
-								imgvDominoToPlace[l].setY(600+100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlace[l].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).biome)]);
 								imgvDominoToPlaceCrown[l][0].setX(1320+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlaceCrown[l][0].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
@@ -393,6 +393,8 @@ public class Main extends Application {
 			case "Champs": biomeID = 4;
 				break;
 			case "Mer": biomeID = 5;
+				break;
+			case "king": biomeID = 6;
 				break;
 		}
 		return biomeID;
