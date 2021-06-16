@@ -69,7 +69,7 @@ public class Player {
 		this.selectedDominoPile.add(domino);
 	}
 	
-	public boolean checkPlacementValidity(Domino testedDomino/* the domino that the player tries to check validity of*/,int x_tile0,int y_tile0,int x_tile1,int y_tile1) {
+	private boolean checkPlacementValidity(Domino testedDomino/* the domino that the player tries to check validity of*/,int x_tile0,int y_tile0,int x_tile1,int y_tile1) {
 		// both tile need to be check at the same time if only one has manage to made a connection
 		
 		int[] x_tile = new int[2];
@@ -297,6 +297,7 @@ public class Player {
 	public int computePlayerScore() {
 		int score = 0;
 		for (Group i_group:biomeGroupList) {
+			System.out.println(i_group);
 			int totalCrown = 0;
 			for (Tile j_tile:i_group.biomeGroup) { // for every tiles in the group we check how many crowns they are in total
 				totalCrown =+ j_tile.numberOfCrown;
