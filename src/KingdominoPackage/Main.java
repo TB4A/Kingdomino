@@ -150,6 +150,23 @@ public class Main extends Application {
 		cb.getSelectionModel().selectedIndexProperty().addListener(
 				(ObservableValue<? extends Number> obsVal, Number oldVal, Number newVal) -> {
 					System.out.println(newVal);
+
+					for (int i = 0; i < 9; i++) {
+						for (int j = 0; j < 9; j++) {
+							imgvKingdom[i][j].setImage(img[6]);
+						}
+					}
+					for (Domino domino: game.player.get((Integer) newVal).kingdom) {
+						System.out.println("test");
+						int x0 = domino.tile0.x+4;
+						int y0 = -domino.tile0.y+4;
+						String biome0 = domino.tile0.biome;
+						imgvKingdom[x0][y0].setImage(img[switchTile(biome0)]);
+						int x1 = domino.tile1.x+4;
+						int y1 = domino.tile1.y+4;
+						String biome1 = domino.tile1.biome;
+						imgvKingdom[x1][y1].setImage(img[switchTile(biome1)]);
+					}
 				}
 		);
 
@@ -234,7 +251,7 @@ public class Main extends Application {
 				imgvKingdom[i][j].setOnMousePressed((MouseEvent e) -> {
 					int[] position = {lasti-4,-(lastj-4)};// use negative of y because of javafx inverting y axis
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)) {
-						imgvKingdom[lasti][lastj].setImage(img[2]);
+						//imgvKingdom[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
 						if (game.currentPlayer == 0) {
 							for (int l = 0; l < 4; l++) {
