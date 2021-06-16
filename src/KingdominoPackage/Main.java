@@ -68,7 +68,7 @@ public class Main extends Application {
 		buttonRotateRight.setVisible(false);
 		root.getChildren().addAll(buttonRotateRight);
 
-		Button buttonRotateLeft = new Button("tourner vers la droite");
+		Button buttonRotateLeft = new Button("tourner vers la gauche");
 		buttonRotateLeft.setLayoutX(1450);
 		buttonRotateLeft.setLayoutY(800);
 		buttonRotateLeft.setVisible(false);

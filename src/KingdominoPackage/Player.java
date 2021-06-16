@@ -10,21 +10,21 @@ public class Player {
 	String playerName;
 	String playerKingColor;
 	Tile kingTile;
-	
+	Domino kingDomino;
 	List<Domino> kingdom;
 	List<Group> biomeGroupList;//contain every valid biome group that will be used to count points later on
 	List<Domino> selectedDominoPile	;
 	
-	int desiredSelectedDominoRotation = 90;
+	int desiredSelectedDominoRotation;
 	int[] desiredSelectedDominoPosition;
 	///////////////////////////////////////// constructor /////////////////////////////////////////////////////
 	public Player(int entry_playerID,String entry_playerName,String entry_playerKingColor) {
 		// TODO Auto-generated constructor stub
 		
 		this.kingTile = new Tile(0,"King",null); 
-		
 		// initialize default king Tile position (0,0)
-		this.kingTile.setPosition(0,0); 
+		
+		this.kingTile.setPosition(0,0);
 		
 		this.playerID = entry_playerID;
 		this.playerName = entry_playerName;
@@ -34,6 +34,17 @@ public class Player {
 		this.biomeGroupList = new ArrayList<>();
 		this.desiredSelectedDominoRotation = 90;
 		this.desiredSelectedDominoPosition = new int[2];
+	
+		// set a king domino that behave as domino with two tiles that are the same 
+		String[] KingBaseDominoData = {"0","king","0","king","0"};
+		this.kingDomino = new Domino(KingBaseDominoData);
+		
+		// set the two tiles of the king domino on the same tile for compabilty overlap check
+		this.kingDomino.tile0.x = 0 ; this.kingDomino.tile1.x = 0 ;
+		this.kingDomino.tile0.y = 0 ; this.kingDomino.tile1.y = 0 ;
+		
+		this.kingdom.add(kingDomino);
+		
 	}
 	public void pick(int arg_playerPick) {
 		
@@ -87,35 +98,50 @@ public class Player {
 			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
+				System.out.println("Procesing overlap with tile "+kingdom.get(i).getTile(side).biome+ "at x = "+kingdom.get(i).getTile(side).x+" ,y = "+kingdom.get(i).getTile(side).y);
 				// tile of int side check
 					// not overlapping anything
 				if((dominoOfKingdom.tile0.x == x_tile[side]) && (dominoOfKingdom.tile0.y == y_tile[side])) {
 					System.out.println("overlaping on tile 0");
 					return false;
-				}
+					}
 				if((dominoOfKingdom.tile1.x == x_tile[side]) && (dominoOfKingdom.tile1.y == y_tile[side])) {
 					System.out.println("overlaping on tile 1");
 					return false;
+					}
+				
 				}
-					//check for neighbour at a given y on the left and right of the Tile
+			
+			for(int i = 0 ; i < this.kingdom.size();i++) {
+				Domino dominoOfKingdom = kingdom.get(i);
+				//check for neighbour at a given y on the left and right of Tile0 and Tile1
 				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
-					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome)) {
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
 						return true;}
 					
 				}
 				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
-					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome)) {
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+						return true;}	
+				}
+				//check for neighbour at a given x up and down of Tile0 and Tile1
+				if((((dominoOfKingdom.tile0.y + 1== y_tile[side] || dominoOfKingdom.tile0.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
+						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
 						return true;}
-
 					
 				}
-				
+				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
+						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+						return true;}	
+				}
 			}
-			
 		}
 		
+		/*
 		for (int side = 0;side<2;side++) {
 		// check if one of the side of a domino is touching the kingTile if so , the domino can be place
 		if((kingTile.x + 1 == x_tile[side] || kingTile.x - 1== x_tile[side] )&&(kingTile.y == y_tile[side])){
@@ -132,6 +158,7 @@ public class Player {
 		System.out.println("x_tile1 : "+ x_tile[1]);
 		System.out.println("y_tile0 : "+ y_tile[0]);
 		System.out.println("x_tile0 : "+ x_tile[0]);
+		*/
 		System.out.println("CheckPlacement : no neighbor found");
 		
 		return false;
@@ -152,8 +179,6 @@ public class Player {
 		
 			//Tile1
 		int x_tile1 = x_tile0 + Math.toIntExact(Math.round(Math.cos(Math.toRadians(this.desiredSelectedDominoRotation)))); // position relative to base Tile
-		System.out.println("orientation" + this.desiredSelectedDominoRotation);
-		System.out.println((Math.round(Math.cos(Math.toRadians(this.desiredSelectedDominoRotation))))+" cos oritentation");
 		int y_tile1 = y_tile0 + Math.toIntExact(Math.round(Math.sin(Math.toRadians(this.desiredSelectedDominoRotation))));
 		
 		//check if placement coordinates are valid
@@ -172,6 +197,8 @@ public class Player {
 		
 		System.out.println(domino.tile0);
 		System.out.println(domino.tile1);
+		
+		this.kingdom.add(domino); // finaly add the domino to the kingdom
 		
 		this.selectedDominoPile.remove(0); // remove placed domino from selectedDominoPile a new domino need to be added to the pile to pusue next placement 
 		System.out.print("removed placed domino from selectedDominoPile, a new domino need to be added to the pile to pursue next placement on next turn ");
@@ -227,7 +254,7 @@ public class Player {
 			for (Tile j_tile:i_group.biomeGroup) { // for every tiles in the group we check how many crowns they are in total
 				totalCrown =+ j_tile.numberOfCrown;
 			}
-			score =+ totalCrown*i_group.biomeGroup.size();// multiplie the number of crown by the size of the group and sum all for every group
+			score =+ totalCrown*i_group.biomeGroup.size();// multiply the number of crown by the size of the group and sum all for every group
 		}
 		
 		
