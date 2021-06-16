@@ -159,24 +159,28 @@ public class Player {
 				Domino dominoOfKingdom = kingdom.get(i);
 				//check for neighbour at a given y on the left and right of Tile0 and Tile1
 				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
 						return true;}
 					
 				}
 				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 						return true;}	
 				}
 				//check for neighbour at a given x up and down of Tile0 and Tile1
 				if((((dominoOfKingdom.tile0.y + 1== y_tile[side] || dominoOfKingdom.tile0.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
 						return true;}
 					
 				}
 				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 						return true;}
