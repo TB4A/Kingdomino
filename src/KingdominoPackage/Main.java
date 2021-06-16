@@ -126,70 +126,19 @@ public class Main extends Application {
 				}
 		);
 
-		imgv2[0][0].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("0");
-			//imgv[4][4].setImage(img[2]);
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 0)) {
-				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
-				if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
-				else {game.changePlayer();}
-
-			}
-		});
-		imgv2[0][1].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("0");
-			//root.getChildren().remove(imgv[4][4]);
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 0)) {
-				imgv4[0][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 2; j++) {
+				int lasti = i, lastj = j;
+				imgv2[i][j].setOnMousePressed((MouseEvent e) -> {
+					System.out.println(lasti);
+					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
+						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
+						else {game.changePlayer();}
+					}
+				});
 			}
 		}
-		);
-
-		imgv2[1][0].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("1");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 1)) {
-				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
-		imgv2[1][1].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("1");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 1)) {
-				imgv4[1][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
-
-		imgv2[2][0].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("2");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 2)) {
-				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
-		imgv2[2][1].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("2");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 2)) {
-				imgv4[2][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
-
-		imgv2[3][0].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("3");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 3)) {
-				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
-		imgv2[3][1].setOnMousePressed((MouseEvent e) -> {
-			System.out.println("3");
-			if(game.pick && game.playerPick(game.getCurrentPlayer(), 3)) {
-				imgv4[3][0].setImage(img[game.getCurrentPlayer()+7]);
-				game.pick = false;
-			}
-		});
 		
 		// for every location on the kingdom
 		for (int i = 0; i < 9; i++) {
@@ -197,12 +146,9 @@ public class Main extends Application {
 				int lasti = i;
 				int lastj = j;
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
-					System.out.println("test");
-					imgv[lasti][lastj].setImage(img[2]);
-					System.out.println(Math.ceil(e.getX()/100)-1);
-					System.out.println(Math.ceil(e.getY()/100)-1);
-					int[] position = {(int)(Math.ceil(e.getX()/100)-1),(int)Math.ceil(e.getY()/100)-1};
-					if (!game.pick && !game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
+					int[] position = {lasti-4,lastj-4};
+					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
+						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
