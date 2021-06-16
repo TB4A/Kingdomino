@@ -85,6 +85,19 @@ public class Main extends Application {
 			}
 		}
 
+		ImageView[][][] imgvKingdomCrown = new ImageView[9][9][2];
+
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				for (int l = 0; l < 2; l++) {
+					imgvKingdomCrown[i][j][l] = new ImageView();
+					imgvKingdomCrown[i][j][l].setX(100+100*i+32*l);
+					imgvKingdomCrown[i][j][l].setY(100+100*j);
+					root.getChildren().addAll(imgvKingdomCrown[i][j][l]);
+				}
+			}
+		}
+
 		ImageView imgCastle = new ImageView(img[12]);
 		imgCastle.setX(500);
 		imgCastle.setY(500);
@@ -161,17 +174,35 @@ public class Main extends Application {
 					for (int i = 0; i < 9; i++) {
 						for (int j = 0; j < 9; j++) {
 							imgvKingdom[i][j].setImage(img[6]);
+							imgvKingdomCrown[i][j][0].setImage(null);
+							imgvKingdomCrown[i][j][1].setImage(null);
 						}
 					}
 					for (Domino domino: game.player.get((Integer) newVal).kingdom) {
 						int x0 = domino.tile0.x+4;
 						int y0 = -domino.tile0.y+4;
 						String biome0 = domino.tile0.biome;
+						int crown0 =domino.tile0.numberOfCrown;
 						imgvKingdom[x0][y0].setImage(img[switchTile(biome0)]);
+						if (crown0 >= 1) {
+							imgvKingdomCrown[x0][y0][0].setImage(img[11]);
+
+							if (crown0 == 2) {
+								imgvKingdomCrown[x0][y0][1].setImage(img[11]);
+							}
+						}
 						int x1 = domino.tile1.x+4;
 						int y1 = -domino.tile1.y+4;
 						String biome1 = domino.tile1.biome;
+						int crown1 =domino.tile1.numberOfCrown;
 						imgvKingdom[x1][y1].setImage(img[switchTile(biome1)]);
+						if (crown1 >= 1) {
+							imgvKingdomCrown[x1][y1][0].setImage(img[11]);
+
+							if (crown1 == 2) {
+								imgvKingdomCrown[x1][y1][1].setImage(img[11]);
+							}
+						}
 					}
 				}
 		);
