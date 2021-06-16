@@ -14,13 +14,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.Scanner;
+
 public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		int entry_numberOfPlayer = 3;
+		int entry_numberOfPlayer0 = 0;
 
+		while (entry_numberOfPlayer0<2 || entry_numberOfPlayer0>4) {
+			Scanner sc = new Scanner(System.in);
+			entry_numberOfPlayer0 = sc.nextInt();
+		}
+
+		int entry_numberOfPlayer =entry_numberOfPlayer0;
 
 		///[graph] each player will be prompted to write their name and king color
 		//gameloop(entry_numberOfPlayer);
