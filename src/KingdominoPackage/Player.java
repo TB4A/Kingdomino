@@ -75,13 +75,23 @@ public class Player {
 		y_tile[0] = y_tile0;
 		y_tile[1] = y_tile1;
 		
+		int x_kingTile = this.kingTile.x; 
+		int y_kingTile = this.kingTile.y;
+		
 		Tile[] testedDomino_tile = {testedDomino.tile0,testedDomino.tile1};// ini testdomino as array for fast loop access
 		//int numberOfNeighbour = 0;
 		//int addedPoints = 0;
 		
+
+		
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino
 			
-
+			if((((kingTile.x + 1 == x_tile[side] || kingTile.x - 1== x_tile[side] )))&&(kingTile.y == y_tile[side])){
+				return true;}
+			
+			if((((kingTile.y + 1 == x_tile[side] || kingTile.y - 1== x_tile[side] )))&&(kingTile.x == y_tile[side])){
+				return true;}
+				
 			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
@@ -104,6 +114,7 @@ public class Player {
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome)) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 						return true;}
+
 					
 				}
 				
