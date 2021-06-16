@@ -77,7 +77,7 @@ public class Main extends Application {
 		ImageView[][] imgv2 = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv2[i][j] = new ImageView(img[i]);
+				imgv2[i][j] = new ImageView();
 				imgv2[i][j].setX(1050 + 150*i);
 				imgv2[i][j].setY(100 + 100 * j);
 				root.getChildren().addAll(imgv2[i][j]);
@@ -87,7 +87,7 @@ public class Main extends Application {
 		ImageView[][] imgv3 = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv3[i][j] = new ImageView(img[i]);
+				imgv3[i][j] = new ImageView();
 				imgv3[i][j].setX(1050 + 150*i);
 				imgv3[i][j].setY(350 + 100 * j);
 				root.getChildren().addAll(imgv3[i][j]);
@@ -150,6 +150,13 @@ public class Main extends Application {
 										}
 									}
 								}
+
+								for (int l = 0; l < 4; l++) {
+									for (int m = 0; m < 2; m++) {
+										imgv3[l][m].setImage(imgv2[l][m].getImage());
+										imgv2[l][m].setImage(null);
+									}
+								}
 							}
 
 						}
@@ -180,6 +187,13 @@ public class Main extends Application {
 										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
 										imgv5[m][0][x][l].setImage(null);
 									}
+								}
+							}
+
+							for (int l = 0; l < 4; l++) {
+								for (int m = 0; m < 2; m++) {
+									imgv3[l][m].setImage(imgv2[l][m].getImage());
+									imgv2[l][m].setImage(null);
 								}
 							}
 						}
