@@ -193,6 +193,17 @@ public class Gamedata {
 				drawFromDrawPile();
 			}
 		}
+		
+		public void forceNextPlayer() {
+			currentPlayer++;
+			player.get(currentPlayer).selectedDominoPile.remove(0);
+			if (currentPlayer >= numberOfPlayer) {// if every player as played draw a new set of domino and set a new player order
+				currentPlayer = 0;
+				
+				setPlayerOrder(); // setPlayerOrder should be before DrawFromDrawPile because play order is dependent on player's pick of last turn
+				drawFromDrawPile();
+			}
+		}
 
 		public int getCurrentPlayer() { return playerOrder[currentPlayer]; }
 		

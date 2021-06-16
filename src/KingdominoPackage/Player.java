@@ -89,9 +89,56 @@ public class Player {
 		Tile[] testedDomino_tile = {testedDomino.tile0,testedDomino.tile1};// ini testdomino as array for fast loop access
 		//int numberOfNeighbour = 0;
 		//int addedPoints = 0;
+		int maxXoutwardvalue = 0;
+		int minXoutwardvalue = 0;
+		int maxYoutwardvalue = 0;
+		int minYoutwardvalue = 0;
 		
+		// check if after placement the board will be bigger in size than 5x5
+		for (int side = 0;side<2;side++) { // pass on both tiles of a domino	
+			// check for overlaps
+			for(int i = 0 ; i < this.kingdom.size();i++) {
+				Domino dominoOfKingdom = kingdom.get(i);
+				System.out.println("Procesing max size with tile "+kingdom.get(i).getTile(side).biome+ " at x = "+kingdom.get(i).getTile(side).x+" ,y = "+kingdom.get(i).getTile(side).y);
+				// tile of int side check
+					// not overlapping anything
 
-		
+				if(maxXoutwardvalue < dominoOfKingdom.getTile(side).x) {
+					maxXoutwardvalue = dominoOfKingdom.getTile(side).x ;
+					}
+				
+				if(minXoutwardvalue > dominoOfKingdom.getTile(side).x) {
+					minXoutwardvalue = dominoOfKingdom.getTile(side).x ;
+					}
+				
+				if(maxYoutwardvalue < dominoOfKingdom.getTile(side).x) {
+					maxYoutwardvalue = dominoOfKingdom.getTile(side).x ;
+					}
+				
+				if(minYoutwardvalue > dominoOfKingdom.getTile(side).x) {
+					maxYoutwardvalue = dominoOfKingdom.getTile(side).x ;
+					}
+			}
+			if(maxXoutwardvalue < x_tile[side]) {
+				maxXoutwardvalue = x_tile[side] ;
+				}
+			if(minXoutwardvalue > x_tile[side]) {
+				minXoutwardvalue = x_tile[side] ;
+				}
+			if(maxYoutwardvalue < y_tile[side]) {
+				maxYoutwardvalue = y_tile[side] ;
+				}
+			if(minYoutwardvalue > y_tile[side]) {
+				minYoutwardvalue = y_tile[side] ;
+				}
+			System.out.println("minYoutwardvalue : "+minYoutwardvalue);
+			System.out.println("minYoutwardvalue : "+maxYoutwardvalue);
+			if(maxXoutwardvalue+Math.abs(minXoutwardvalue) > 4) {
+				System.out.println("kingdom will be too big on the x axis");return false;}
+			if(maxYoutwardvalue+Math.abs(minYoutwardvalue) > 4) {
+				System.out.println("kingdom will be too big on the y axis");return false;}
+		}
+		// for both side of every domino in the kingdom check for overlap
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino	
 			// check for overlaps
 			for(int i = 0 ; i < this.kingdom.size();i++) {
@@ -111,6 +158,7 @@ public class Player {
 				
 				}
 		}
+		// for both side of every domino in the kingdom check for neighbor
 		for (int side = 0;side<2;side++) { 
 			for(int i = 0 ; i < this.kingdom.size();i++) {
 				Domino dominoOfKingdom = kingdom.get(i);
@@ -136,7 +184,7 @@ public class Player {
 				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
-						return true;}	
+						return true;}
 				}
 			}
 		}
@@ -195,7 +243,8 @@ public class Player {
 		
 		processBiomeGroup(domino,x_tile0,y_tile0,x_tile1,y_tile1);
 		
-		System.out.println(domino.tile0);
+		System.out.println("placing domino baseTile : "+domino.tile0+" of biome "+domino.tile0.biome+" at x = "+domino.tile0.x+" at y = "+domino.tile0.y );
+		System.out.println("placing domino orientedTile : "+domino.tile1+" of biome "+domino.tile1.biome+" at x = "+domino.tile1.x+" at y = "+domino.tile1.y );
 		System.out.println(domino.tile1);
 		
 		this.kingdom.add(domino); // finaly add the domino to the kingdom
