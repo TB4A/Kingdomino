@@ -32,7 +32,7 @@ public class Player {
 		this.selectedDominoPile = new ArrayList<>();
 		this.kingdom = new ArrayList<>();
 		this.biomeGroupList = new ArrayList<>();
-		this.desiredSelectedDominoRotation = 0;
+		this.desiredSelectedDominoRotation = 90;
 		this.desiredSelectedDominoPosition = new int[2];
 	}
 	public void pick(int arg_playerPick) {
