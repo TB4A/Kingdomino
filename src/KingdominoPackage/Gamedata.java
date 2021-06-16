@@ -21,7 +21,7 @@ public class Gamedata {
 	List<Domino> currentDraw = new ArrayList<>() ;
 	List<Player> player = new ArrayList<Player>();// initialize player list "containing the objects of the class Player"
 	int[] playerOrder;
-	int currentPlayer;
+	public int currentPlayer;
 	public boolean pick;
 	
 	

@@ -77,7 +77,7 @@ public class Main extends Application {
 		ImageView[][] imgv2 = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv2[i][j] = new ImageView(img[i]);
+				imgv2[i][j] = new ImageView();
 				imgv2[i][j].setX(1050 + 150*i);
 				imgv2[i][j].setY(100 + 100 * j);
 				root.getChildren().addAll(imgv2[i][j]);
@@ -87,7 +87,7 @@ public class Main extends Application {
 		ImageView[][] imgv3 = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv3[i][j] = new ImageView(img[i]);
+				imgv3[i][j] = new ImageView();
 				imgv3[i][j].setX(1050 + 150*i);
 				imgv3[i][j].setY(350 + 100 * j);
 				root.getChildren().addAll(imgv3[i][j]);
@@ -128,13 +128,38 @@ public class Main extends Application {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				int lasti = i, lastj = j;
+				int lasti = i;
 				imgv2[i][j].setOnMousePressed((MouseEvent e) -> {
 					System.out.println(lasti);
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
 						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
-						else {game.changePlayer();}
+						else {
+							game.changePlayer();
+							if (game.currentPlayer == 0) {
+								for (int l = 0; l < 4; l++) {
+									imgv4[l][1].setImage(imgv4[l][0].getImage());
+									imgv4[l][0].setImage(null);
+								}
+
+								for (int m = 0; m < 4; m++) {
+									for (int x = 0; x < 2; x++) {
+										for (int l = 0; l < 2; l++) {
+											imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
+											imgv5[m][0][x][l].setImage(null);
+										}
+									}
+								}
+
+								for (int l = 0; l < 4; l++) {
+									for (int m = 0; m < 2; m++) {
+										imgv3[l][m].setImage(imgv2[l][m].getImage());
+										imgv2[l][m].setImage(null);
+									}
+								}
+							}
+
+						}
 					}
 				});
 			}
@@ -150,6 +175,28 @@ public class Main extends Application {
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
 						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
+						if (game.currentPlayer == 0) {
+							for (int l = 0; l < 4; l++) {
+								imgv4[l][1].setImage(imgv4[l][0].getImage());
+								imgv4[l][0].setImage(null);
+							}
+
+							for (int m = 0; m < 4; m++) {
+								for (int x = 0; x < 2; x++) {
+									for (int l = 0; l < 2; l++) {
+										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
+										imgv5[m][0][x][l].setImage(null);
+									}
+								}
+							}
+
+							for (int l = 0; l < 4; l++) {
+								for (int m = 0; m < 2; m++) {
+									imgv3[l][m].setImage(imgv2[l][m].getImage());
+									imgv2[l][m].setImage(null);
+								}
+							}
+						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
 					}
