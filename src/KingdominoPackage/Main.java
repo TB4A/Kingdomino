@@ -24,6 +24,7 @@ public class Main extends Application {
 		int entry_numberOfPlayer0 = 0;
 
 		while (entry_numberOfPlayer0<2 || entry_numberOfPlayer0>4) {
+			System.out.println("Nombre de joueurs (2-4)");
 			Scanner sc = new Scanner(System.in);
 			entry_numberOfPlayer0 = sc.nextInt();
 		}
