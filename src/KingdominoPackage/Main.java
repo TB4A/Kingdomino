@@ -136,9 +136,19 @@ public class Main extends Application {
 						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false;}
 						else {
 							game.changePlayer();
-							if (game.getCurrentPlayer() == 0) {
+							if (game.currentPlayer == 0) {
 								for (int l = 0; l < 4; l++) {
+									imgv4[l][1].setImage(imgv4[l][0].getImage());
 									imgv4[l][0].setImage(null);
+								}
+
+								for (int m = 0; m < 4; m++) {
+									for (int x = 0; x < 2; x++) {
+										for (int l = 0; l < 2; l++) {
+											imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
+											imgv5[m][0][x][l].setImage(null);
+										}
+									}
 								}
 							}
 
@@ -158,9 +168,19 @@ public class Main extends Application {
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,90)) {
 						imgv[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
-						if (game.getCurrentPlayer() == 0) {
+						if (game.currentPlayer == 0) {
 							for (int l = 0; l < 4; l++) {
+								imgv4[l][1].setImage(imgv4[l][0].getImage());
 								imgv4[l][0].setImage(null);
+							}
+
+							for (int m = 0; m < 4; m++) {
+								for (int x = 0; x < 2; x++) {
+									for (int l = 0; l < 2; l++) {
+										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
+										imgv5[m][0][x][l].setImage(null);
+									}
+								}
 							}
 						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
