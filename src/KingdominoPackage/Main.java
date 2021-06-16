@@ -42,7 +42,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Kingdomino");
 		primaryStage.setScene(new Scene(root, 1250, 750));
 
-		Image[] img = new Image[13];
+		Image[] img = new Image[14];
 		img[0] = new Image("file:Assets/prairie.png", 100,100, true, false);
 		img[1] = new Image("file:Assets/mines.png", 100,100, true, false);
 		img[2] = new Image("file:Assets/foret.png", 100,100, true, false);
@@ -56,6 +56,7 @@ public class Main extends Application {
 		img[10] = new Image("file:Assets/pieceYellow.png", 64,64, true, false);
 		img[11] = new Image("file:Assets/crown.png", 32,32, true, false);
 		img[12] = new Image("file:Assets/castle_grey.png", 100,100, true, false);
+		img[13] = new Image("file:Assets/terrainTile4.png",100,100,true,false);
 
 		ChoiceBox<Object> cb = new ChoiceBox<Object>(FXCollections.observableArrayList("Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"));
 		if (entry_numberOfPlayer <= 3) {cb.getItems().remove(3);}
@@ -178,6 +179,12 @@ public class Main extends Application {
 			}
 		}
 
+		ImageView imgvBorder = new ImageView(img[13]);
+			imgvBorder.setX(1320);
+			imgvBorder.setY(675);
+			imgvBorder.setVisible(false);
+			root.getChildren().addAll(imgvBorder);
+
 		primaryStage.show();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(
@@ -260,6 +267,7 @@ public class Main extends Application {
 			imgvDominoToPlaceCrown[0][1].setImage(null);
 			imgvDominoToPlaceCrown[1][0].setImage(null);
 			imgvDominoToPlaceCrown[1][1].setImage(null);
+			imgvBorder.setVisible(false);
 		});
 
 		buttonRotateRight.setOnAction(e -> {
@@ -310,6 +318,7 @@ public class Main extends Application {
 								imgvDominoToPlaceCrown[l][0].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlaceCrown[l][1].setX(1352+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
 								imgvDominoToPlaceCrown[l][1].setY(675-100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvBorder.setVisible(true);
 
 								if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).numberOfCrown >= 1) {
 									imgvDominoToPlaceCrown[l][0].setImage(img[11]);
