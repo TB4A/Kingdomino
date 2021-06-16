@@ -63,13 +63,16 @@ public class Main extends Application {
 		root.getChildren().addAll(cb);
 
 		Button buttonRotateRight = new Button("tourner vers la droite");
-		buttonRotateRight.setLayoutX(1150);
+		buttonRotateRight.setLayoutX(1450);
 		buttonRotateRight.setLayoutY(800);
 		buttonRotateRight.setVisible(false);
 		root.getChildren().addAll(buttonRotateRight);
 
 		Button buttonRotateLeft = new Button("tourner vers la gauche");
-		buttonRotateLeft.setLayoutX(1450);
+
+
+		buttonRotateLeft.setLayoutX(1150);
+
 		buttonRotateLeft.setLayoutY(800);
 		buttonRotateLeft.setVisible(false);
 		root.getChildren().addAll(buttonRotateLeft);
@@ -134,6 +137,14 @@ public class Main extends Application {
 			}
 		}
 
+		ImageView[] imgvDominoToPlace = new ImageView[2];
+		for (int i = 0; i < 2; i++) {
+			imgvDominoToPlace[i] = new ImageView();
+			imgvDominoToPlace[i].setX(1200+100*i);
+			imgvDominoToPlace[i].setY(650);
+			root.getChildren().addAll(imgvDominoToPlace[i]);
+		}
+
 		primaryStage.show();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(
@@ -145,11 +156,19 @@ public class Main extends Application {
 		buttonRotateRight.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoRight();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+			for (int l = 0; l < 2; l++) {
+				imgvDominoToPlace[l].setX(1300 + 100 * l * Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlace[l].setY(600 + 100 * l * Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+			}
 		});
 		
 		buttonRotateLeft.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
+			for (int l = 0; l < 2; l++) {
+				imgvDominoToPlace[l].setX(1300+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+				imgvDominoToPlace[l].setY(600+100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+			}
 		});
 		
 		for (int i = 0; i < 4; i++) {
@@ -160,7 +179,17 @@ public class Main extends Application {
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 
 						imgvPawn[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
-						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; buttonRotateRight.setVisible(true);buttonRotateLeft.setVisible(true);}
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {
+							game.pick = false;
+							buttonRotateRight.setVisible(true);
+							buttonRotateLeft.setVisible(true);
+							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
+							for (int l = 0; l < 2; l++) {
+								imgvDominoToPlace[l].setX(1300+100*l*Math.cos(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setY(600+100*l*Math.sin(Math.toRadians(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)));
+								imgvDominoToPlace[l].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(l).biome)]);
+							}
+						}
 
 						else {
 							game.changePlayer();
@@ -236,6 +265,8 @@ public class Main extends Application {
 						game.pick = true;//allow player to pick domino
 						buttonRotateRight.setVisible(false);
 						buttonRotateLeft.setVisible(false);
+						imgvDominoToPlace[0].setImage(null);
+						imgvDominoToPlace[1].setImage(null);
 					}
 				});
 			}
