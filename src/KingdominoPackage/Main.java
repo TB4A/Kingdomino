@@ -160,7 +160,12 @@ public class Main extends Application {
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
 
 						imgvPawn[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
-						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; buttonRotateRight.setVisible(true);buttonRotateLeft.setVisible(true);}
+						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {
+							game.pick = false;
+							buttonRotateRight.setVisible(true);
+							buttonRotateLeft.setVisible(true);
+							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
+						}
 
 						else {
 							game.changePlayer();
