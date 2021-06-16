@@ -21,11 +21,6 @@ public class Player {
 	public Player(int entry_playerID,String entry_playerName,String entry_playerKingColor) {
 		// TODO Auto-generated constructor stub
 		
-		this.kingTile = new Tile(0,"King",null); 
-		// initialize default king Tile position (0,0)
-		
-		this.kingTile.setPosition(0,0);
-		
 		this.playerID = entry_playerID;
 		this.playerName = entry_playerName;
 		this.playerKingColor = entry_playerKingColor;
