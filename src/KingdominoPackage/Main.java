@@ -188,7 +188,8 @@ public class Main extends Application {
 				game.pick = false;
 			}
 		});
-
+		
+		// for every location on the kingdom
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				imgv[i][j].setOnMousePressed((MouseEvent e) -> {

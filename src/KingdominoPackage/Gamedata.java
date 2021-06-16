@@ -187,10 +187,10 @@ public class Gamedata {
 
 		public void changePlayer() {
 			currentPlayer++;
-			if (currentPlayer >= numberOfPlayer) {
+			if (currentPlayer >= numberOfPlayer) {// if every player as played draw a new set of domino and set a new player order
 				currentPlayer = 0;
+				setPlayerOrder(); // setPlayerOrder should be before DrawFromDrawPile because play order is dependent on player's pick of last turn
 				drawFromDrawPile();
-				setPlayerOrder();
 			}
 		}
 
