@@ -13,7 +13,7 @@ public class Player {
 	
 	List<Domino> kingdom;
 	List<Group> biomeGroupList;//contain every valid biome group that will be used to count points later on
-	List<Domino> selectedDominoPile;
+	List<Domino> selectedDominoPile	;
 	
 	int desiredSelectedDominoRotation;
 	int[] desiredSelectedDominoPosition;
@@ -95,11 +95,15 @@ public class Player {
 				}
 					//check for neighbour at a given y on the left and right of the Tile
 				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
-					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome)) {return true;}
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome)) {
+						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
+						return true;}
 					
 				}
 				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
-					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome)) {return true;}
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome)) {
+						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+						return true;}
 					
 				}
 				
@@ -127,7 +131,7 @@ public class Player {
 		
 		//check if placement coordinates are valid
 		
-		if (checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {System.out.println("non-valid placement");return false;}
+		if(checkPlacementValidity(domino,x_tile0,y_tile0,x_tile1,y_tile1) == false) {System.out.println("non-valid placement");return false;}
 		
 		// set coordinates of tile 1 and tile 2 if check succeeded
 		
@@ -141,6 +145,9 @@ public class Player {
 		
 		System.out.println(domino.tile0);
 		System.out.println(domino.tile1);
+		
+		this.selectedDominoPile.remove(0); // remove placed domino from selectedDominoPile a new domino need to be added to the pile to pusue next placement 
+		System.out.print("removed placed domino from selectedDominoPile, a new domino need to be added to the pile to pursue next placement on next turn ");
 		return true;
 		
 		
