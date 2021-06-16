@@ -40,7 +40,7 @@ public class Main extends Application {
 
 		Group root = new Group();
 		primaryStage.setTitle("Kingdomino");
-		primaryStage.setScene(new Scene(root, 1250, 750));
+		primaryStage.setScene(new Scene(root, 1920, 1020));
 
 		Image[] img = new Image[14];
 		img[0] = new Image("file:Assets/prairie.png", 100,100, true, false);
@@ -416,6 +416,7 @@ public class Main extends Application {
 						imgvDominoToPlaceCrown[0][1].setImage(null);
 						imgvDominoToPlaceCrown[1][0].setImage(null);
 						imgvDominoToPlaceCrown[1][1].setImage(null);
+						imgvBorder.setVisible(false);
 					}
 				});
 			}
