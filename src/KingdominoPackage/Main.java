@@ -251,6 +251,14 @@ public class Main extends Application {
 			labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 			if (game.currentPlayer == 0) {
 				for (int l = 0; l < entry_numberOfPlayer; l++) {
+					labelPlayer[l].setText("Joueur "+ (l+1)+" : "+game.player.get(l).computePlayerScore());
+				}
+				if (game.round > 12) {
+					for (int l = 0; l < entry_numberOfPlayer; l++) {
+						labelPlayer[l].setText("Joueur "+ (l+1)+" : "+game.player.get(l).computePlayerScore());
+					}
+				}
+				for (int l = 0; l < entry_numberOfPlayer; l++) {
 					imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
 					imgvPawn[l][0].setImage(null);
 				}
@@ -354,6 +362,9 @@ public class Main extends Application {
 							labelJ.setGraphic(new ImageView(img[7+ game.getCurrentPlayer()]));
 							labelJ.setText("Joueur "+(game.getCurrentPlayer()+1));
 							if (game.currentPlayer == 0) {
+								for (int l = 0; l < entry_numberOfPlayer; l++) {
+									labelPlayer[l].setText("Joueur "+ (l+1)+" : "+game.player.get(l).computePlayerScore());
+								}
 								if (game.round > 12) {
 									for (int l = 0; l < entry_numberOfPlayer; l++) {
 										labelPlayer[l].setText("Joueur "+ (l+1)+" : "+game.player.get(l).computePlayerScore());
