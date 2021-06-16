@@ -69,14 +69,17 @@ public class Main extends Application {
 		root.getChildren().addAll(buttonRotateRight);
 
 		Button buttonRotateLeft = new Button("tourner vers la gauche");
-
-
 		buttonRotateLeft.setLayoutX(1150);
-
 		buttonRotateLeft.setLayoutY(800);
 		buttonRotateLeft.setVisible(false);
 		root.getChildren().addAll(buttonRotateLeft);
-		
+
+		Button buttonPass = new Button("passer mon tour");
+		buttonPass.setLayoutX(100);
+		buttonPass.setLayoutY(0);
+		buttonPass.setVisible(false);
+		root.getChildren().addAll(buttonPass);
+
 		ImageView[][] imgvKingdom = new ImageView[9][9];
 		
 		for (int i = 0; i < 9; i++) {
@@ -210,6 +213,46 @@ public class Main extends Application {
 				}
 		);
 
+		buttonPass.setOnAction(e -> {
+			game.forceNextPlayer();
+			if (game.currentPlayer == 0) {
+				for (int l = 0; l < 4; l++) {
+					imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
+					imgvPawn[l][0].setImage(null);
+				}
+
+				for (int m = 0; m < 4; m++) {
+					for (int x = 0; x < 2; x++) {
+						for (int l = 0; l < 2; l++) {
+							imgvCrown[m][1][x][l].setImage(imgvCrown[m][0][x][l].getImage());
+							imgvCrown[m][0][x][l].setImage(null);
+							if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
+								imgvCrown[m][0][x][l].setImage(img[11]);
+							}
+						}
+					}
+				}
+
+				for (int l = 0; l < 4; l++) {
+					for (int m = 0; m < 2; m++) {
+						imgvDominoPicked[l][m].setImage(imgvDominoPick[l][m].getImage());
+						imgvDominoPick[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
+					}
+				}
+			}
+			cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
+			game.pick = true;//allow player to pick domino
+			buttonPass.setVisible(false);
+			buttonRotateRight.setVisible(false);
+			buttonRotateLeft.setVisible(false);
+			imgvDominoToPlace[0].setImage(null);
+			imgvDominoToPlace[1].setImage(null);
+			imgvDominoToPlaceCrown[0][0].setImage(null);
+			imgvDominoToPlaceCrown[0][1].setImage(null);
+			imgvDominoToPlaceCrown[1][0].setImage(null);
+			imgvDominoToPlaceCrown[1][1].setImage(null);
+		});
+
 		buttonRotateRight.setOnAction(e -> {
 			game.player.get(game.getCurrentPlayer()).rotateSelectedDominoLeft();
 			System.out.println(game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation);
@@ -246,6 +289,7 @@ public class Main extends Application {
 						imgvPawn[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
 						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {
 							game.pick = false;
+							buttonPass.setVisible(true);
 							buttonRotateRight.setVisible(true);
 							buttonRotateLeft.setVisible(true);
 							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
@@ -341,6 +385,7 @@ public class Main extends Application {
 						}
 						cb.setValue("Joueur "+(game.getCurrentPlayer()+1));
 						game.pick = true;//allow player to pick domino
+						buttonPass.setVisible(false);
 						buttonRotateRight.setVisible(false);
 						buttonRotateLeft.setVisible(false);
 						imgvDominoToPlace[0].setImage(null);

@@ -195,8 +195,8 @@ public class Gamedata {
 		}
 		
 		public void forceNextPlayer() {
-			currentPlayer++;
 			player.get(currentPlayer).selectedDominoPile.remove(0);
+			currentPlayer++;
 			if (currentPlayer >= numberOfPlayer) {// if every player as played draw a new set of domino and set a new player order
 				currentPlayer = 0;
 				
