@@ -9,7 +9,6 @@ public class Player {
 	int playerID;
 	String playerName;
 	String playerKingColor;
-	Tile kingTile;
 	Domino kingDomino;
 	List<Domino> kingdom;
 	List<Group> biomeGroupList;//contain every valid biome group that will be used to count points later on
@@ -165,7 +164,7 @@ public class Player {
 						return true;}
 					
 				}
-				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile1.y == y_tile[side])){
 					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
@@ -179,7 +178,7 @@ public class Player {
 						return true;}
 					
 				}
-				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile1.x == x_tile[side])){
 					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
 					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) || dominoOfKingdom.tile1.biome.equals("king")) {
 						System.out.println("placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
