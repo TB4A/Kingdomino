@@ -56,7 +56,7 @@ public class Main extends Application {
 		img[10] = new Image("file:Assets/pieceYellow.png", 64,64, true, false);
 		img[11] = new Image("file:Assets/crown.png", 32,32, true, false);
 		img[12] = new Image("file:Assets/castle_grey.png", 100,100, true, false);
-		ImageView[][] imgv = new ImageView[9][9];
+		
 		ChoiceBox<Object> cb = new ChoiceBox<Object>(FXCollections.observableArrayList("Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"));
 		cb.setValue("Joueur 1");
 		System.out.println(cb.getValue());
@@ -68,12 +68,13 @@ public class Main extends Application {
 		button.setVisible(false);
 		root.getChildren().addAll(button);
 
+		ImageView[][] imgvKingdom = new ImageView[9][9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				imgv[i][j] = new ImageView(img[6]);
-				imgv[i][j].setX(100+100*i);
-				imgv[i][j].setY(100+100*j);
-				root.getChildren().addAll(imgv[i][j]);
+				imgvKingdom[i][j] = new ImageView(img[6]);
+				imgvKingdom[i][j].setX(100+100*i);
+				imgvKingdom[i][j].setY(100+100*j);
+				root.getChildren().addAll(imgvKingdom[i][j]);
 			}
 		}
 
@@ -82,45 +83,45 @@ public class Main extends Application {
 		imgCastle.setY(500);
 		root.getChildren().addAll(imgCastle);
 
-		ImageView[][] imgv2 = new ImageView[4][2];
+		ImageView[][] imgvDominoPick = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv2[i][j] = new ImageView();
-				imgv2[i][j].setX(1050 + 150*i);
-				imgv2[i][j].setY(100 + 100 * j);
-				root.getChildren().addAll(imgv2[i][j]);
+				imgvDominoPick[i][j] = new ImageView();
+				imgvDominoPick[i][j].setX(1050 + 150*i);
+				imgvDominoPick[i][j].setY(100 + 100 * j);
+				root.getChildren().addAll(imgvDominoPick[i][j]);
 			}
 		}
 
-		ImageView[][] imgv3 = new ImageView[4][2];
+		ImageView[][] imgvDominoPicked = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv3[i][j] = new ImageView();
-				imgv3[i][j].setX(1050 + 150*i);
-				imgv3[i][j].setY(350 + 100 * j);
-				root.getChildren().addAll(imgv3[i][j]);
+				imgvDominoPicked[i][j] = new ImageView();
+				imgvDominoPicked[i][j].setX(1050 + 150*i);
+				imgvDominoPicked[i][j].setY(350 + 100 * j);
+				root.getChildren().addAll(imgvDominoPicked[i][j]);
 			}
 		}
 
-		ImageView[][] imgv4 = new ImageView[4][2];
+		ImageView[][] imgvPawn = new ImageView[4][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv4[i][j] = new ImageView();
-				imgv4[i][j].setX(1068 + 150*i);
-				imgv4[i][j].setY(168 + 250 * j);
-				root.getChildren().addAll(imgv4[i][j]);
+				imgvPawn[i][j] = new ImageView();
+				imgvPawn[i][j].setX(1068 + 150*i);
+				imgvPawn[i][j].setY(168 + 250 * j);
+				root.getChildren().addAll(imgvPawn[i][j]);
 			}
 		}
 
-		ImageView[][][][] imgv5 = new ImageView[4][2][2][2];
+		ImageView[][][][] imgvCrown = new ImageView[4][2][2][2];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
 				for (int x = 0; x < 2; x++) {
 					for (int l = 0; l < 2; l++) {
-						imgv5[i][j][x][l] = new ImageView();
-						imgv5[i][j][x][l].setX(1050 + 150*i + 32*x);
-						imgv5[i][j][x][l].setY(100 + 250 * j + 168*l);
-						root.getChildren().addAll(imgv5[i][j][x][l]);
+						imgvCrown[i][j][x][l] = new ImageView();
+						imgvCrown[i][j][x][l].setX(1050 + 150*i + 32*x);
+						imgvCrown[i][j][x][l].setY(100 + 250 * j + 168*l);
+						root.getChildren().addAll(imgvCrown[i][j][x][l]);
 					}
 				}
 			}
@@ -142,26 +143,26 @@ public class Main extends Application {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
 				int lasti = i;
-				imgv2[i][j].setOnMousePressed((MouseEvent e) -> {
+				imgvDominoPick[i][j].setOnMousePressed((MouseEvent e) -> {
 					System.out.println(lasti);
 					if(game.pick && game.playerPick(game.getCurrentPlayer(), lasti)) {
-						imgv4[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
+						imgvPawn[lasti][0].setImage(img[game.getCurrentPlayer()+7]);
 						if (game.player.get(game.getCurrentPlayer()).selectedDominoPile.size() >= 2) {game.pick = false; button.setVisible(true);}
 						else {
 							game.changePlayer();
 							if (game.currentPlayer == 0) {
 								for (int l = 0; l < 4; l++) {
-									imgv4[l][1].setImage(imgv4[l][0].getImage());
-									imgv4[l][0].setImage(null);
+									imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
+									imgvPawn[l][0].setImage(null);
 								}
 
 								for (int m = 0; m < 4; m++) {
 									for (int x = 0; x < 2; x++) {
 										for (int l = 0; l < 2; l++) {
-											imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
-											imgv5[m][0][x][l].setImage(null);
+											imgvCrown[m][1][x][l].setImage(imgvCrown[m][0][x][l].getImage());
+											imgvCrown[m][0][x][l].setImage(null);
 											if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
-												imgv5[m][0][x][l].setImage(img[11]);
+												imgvCrown[m][0][x][l].setImage(img[11]);
 											}
 
 										}
@@ -170,8 +171,8 @@ public class Main extends Application {
 
 								for (int l = 0; l < 4; l++) {
 									for (int m = 0; m < 2; m++) {
-										imgv3[l][m].setImage(imgv2[l][m].getImage());
-										imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
+										imgvDominoPicked[l][m].setImage(imgvDominoPick[l][m].getImage());
+										imgvDominoPick[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 									}
 								}
 							}
@@ -187,24 +188,24 @@ public class Main extends Application {
 			for (int j = 0; j < 9; j++) {
 				int lasti = i;
 				int lastj = j;
-				imgv[i][j].setOnMousePressed((MouseEvent e) -> {
+				imgvKingdom[i][j].setOnMousePressed((MouseEvent e) -> {
 					int[] position = {lasti-4,-(lastj-4)};// use negative of y because of javafx inverting y axis
 					if (!game.pick && game.player.get(game.getCurrentPlayer()).placeLastSelectedInKingdomAsTile(position,game.player.get(game.getCurrentPlayer()).desiredSelectedDominoRotation)) {
-						imgv[lasti][lastj].setImage(img[2]);
+						imgvKingdom[lasti][lastj].setImage(img[2]);
 						game.changePlayer();
 						if (game.currentPlayer == 0) {
 							for (int l = 0; l < 4; l++) {
-								imgv4[l][1].setImage(imgv4[l][0].getImage());
-								imgv4[l][0].setImage(null);
+								imgvPawn[l][1].setImage(imgvPawn[l][0].getImage());
+								imgvPawn[l][0].setImage(null);
 							}
 
 							for (int m = 0; m < 4; m++) {
 								for (int x = 0; x < 2; x++) {
 									for (int l = 0; l < 2; l++) {
-										imgv5[m][1][x][l].setImage(imgv5[m][0][x][l].getImage());
-										imgv5[m][0][x][l].setImage(null);
+										imgvCrown[m][1][x][l].setImage(imgvCrown[m][0][x][l].getImage());
+										imgvCrown[m][0][x][l].setImage(null);
 										if (game.currentDraw.get(m).getTile(l).numberOfCrown > x) {
-											imgv5[m][0][x][l].setImage(img[11]);
+											imgvCrown[m][0][x][l].setImage(img[11]);
 										}
 									}
 								}
@@ -212,8 +213,8 @@ public class Main extends Application {
 
 							for (int l = 0; l < 4; l++) {
 								for (int m = 0; m < 2; m++) {
-									imgv3[l][m].setImage(imgv2[l][m].getImage());
-									imgv2[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
+									imgvDominoPicked[l][m].setImage(imgvDominoPick[l][m].getImage());
+									imgvDominoPick[l][m].setImage(img[switchTile(game.currentDraw.get(l).getTile(m).biome)]);
 								}
 							}
 						}
@@ -228,7 +229,7 @@ public class Main extends Application {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 2; j++) {
-				imgv2[i][j].setImage(img[switchTile(game.currentDraw.get(i).getTile(j).biome)]);
+				imgvDominoPick[i][j].setImage(img[switchTile(game.currentDraw.get(i).getTile(j).biome)]);
 
 			}
 		}
@@ -239,10 +240,10 @@ public class Main extends Application {
 					System.out.println(game.currentDraw.get(i).getTile(l).numberOfCrown);
 					System.out.println(game.currentDraw.get(i).dominoID);
 					if (game.currentDraw.get(i).getTile(l).numberOfCrown >= 1) {
-						imgv5[i][j][0][l].setImage(img[11]);
+						imgvCrown[i][j][0][l].setImage(img[11]);
 
 						if (game.currentDraw.get(i).getTile(l).numberOfCrown == 2) {
-							imgv5[i][j][1][l].setImage(img[11]);
+							imgvCrown[i][j][1][l].setImage(img[11]);
 						}
 					}
 				}
