@@ -134,6 +134,14 @@ public class Main extends Application {
 			}
 		}
 
+		ImageView[] imgvDominoToPlace = new ImageView[2];
+		for (int i = 0; i < 2; i++) {
+			imgvDominoToPlace[i] = new ImageView();
+			imgvDominoToPlace[i].setX(1200+100*i);
+			imgvDominoToPlace[i].setY(650);
+			root.getChildren().addAll(imgvDominoToPlace[i]);
+		}
+
 		primaryStage.show();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(
@@ -165,6 +173,8 @@ public class Main extends Application {
 							buttonRotateRight.setVisible(true);
 							buttonRotateLeft.setVisible(true);
 							game.player.get(game.getCurrentPlayer()).resetSelectedDominoRotation();
+							imgvDominoToPlace[0].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(0).biome)]);
+							imgvDominoToPlace[1].setImage(img[switchTile(game.player.get(game.getCurrentPlayer()).selectedDominoPile.get(0).getTile(1).biome)]);
 						}
 
 						else {
