@@ -32,6 +32,7 @@ public class Player {
 		// set a king domino that behave as domino with two tiles that are the same 
 		String[] KingBaseDominoData = {"0","king","0","king","0"};
 		this.kingDomino = new Domino(KingBaseDominoData);
+		this.kingDomino.setOwner(this);
 		
 		// set the two tiles of the king domino on the same tile for compabilty overlap check
 		this.kingDomino.tile0.x = 0 ; this.kingDomino.tile1.x = 0 ;
@@ -113,6 +114,10 @@ public class Player {
 					maxYoutwardvalue = dominoOfKingdom.getTile(side).x ;
 					}
 			}
+
+		}
+		
+		for (int side = 0;side<2;side++) { 
 			if(maxXoutwardvalue < x_tile[side]) {
 				maxXoutwardvalue = x_tile[side] ;
 				}
@@ -132,6 +137,7 @@ public class Player {
 			if(maxYoutwardvalue+Math.abs(minYoutwardvalue) > 4) {
 				System.out.println("kingdom will be too big on the y axis");return false;}
 		}
+		
 		// for both side of every domino in the kingdom check for overlap
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino	
 			// check for overlaps
@@ -257,7 +263,7 @@ public class Player {
 	// process Groups of a given tile by depending of it's neighbor pos 
 	public boolean processBiomeGroup(Domino testedDomino/* the domino that the player tries to check validity of*/,int x_tile0,int y_tile0,int x_tile1,int y_tile1) {
 		// both tile need to be check at the same time if only one has manage to made a connection
-		Tile[] tile = {testedDomino.tile0,testedDomino.tile1};
+		Tile[] testedDomino_tile = {testedDomino.tile0,testedDomino.tile1};
 		
 		int[] x_tile = new int[2];
 		x_tile[0] = x_tile0;
@@ -268,9 +274,49 @@ public class Player {
 		y_tile[1] = y_tile1;
 		
 		
+		System.out.println(".......1.......Geting GROUP");
 		
+		
+		for (int side = 0;side<2;side++) { 
+			for(int i = 0 ; i < this.kingdom.size();i++) {
+				Domino dominoOfKingdom = kingdom.get(i);
+				//check for neighbour at a given y on the left and right of Tile0 and Tile1
+				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) ) {
+						System.out.println("Group : placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
+						testedDomino_tile[side].setGroupHandleOfTile(dominoOfKingdom.tile0.getGroupHandleOfTile()); // create/add or merge groups with tile current group
+						}
+					
+				}
+				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile1.y == y_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) ) {
+						System.out.println("Group : placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+						testedDomino_tile[side].setGroupHandleOfTile(dominoOfKingdom.tile0.getGroupHandleOfTile()); // create/add or merge groups with tile current group	
+					}	
+				}
+				//check for neighbour at a given x up and down of Tile0 and Tile1
+				if((((dominoOfKingdom.tile0.y + 1== y_tile[side] || dominoOfKingdom.tile0.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile0.x == x_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+					if (dominoOfKingdom.tile0.biome.equals(testedDomino_tile[side].biome) ) {
+						System.out.println("Group : placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile0.biome);
+						testedDomino_tile[side].setGroupHandleOfTile(dominoOfKingdom.tile0.getGroupHandleOfTile()); // create/add or merge groups with tile current group	
+					}
+					
+				}
+				if((((dominoOfKingdom.tile1.y + 1== y_tile[side] || dominoOfKingdom.tile1.y - 1== y_tile[side] )))&&(dominoOfKingdom.tile1.x == x_tile[side])){
+					System.out.println("checking bione validity of placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+					if (dominoOfKingdom.tile1.biome.equals(testedDomino_tile[side].biome) ) {
+						System.out.println("Group : placed Tile of biome "+ testedDomino_tile[side].biome +" of side " +side+ " is valid agains "+dominoOfKingdom.tile1.biome);
+						testedDomino_tile[side].setGroupHandleOfTile(dominoOfKingdom.tile0.getGroupHandleOfTile()); // create/add or merge groups with tile current group	
+					}
+				}
+			}
+		}
+		/*
 		for (int side = 0;side<2;side++) { // pass on both tiles of a domino that was selected
-			
+			System.out.println("......2........Geting GROUP");
 			// check that both tile of the same domino are not same else put them in the same group
 			if(testedDomino.tile0.biome == testedDomino.tile1.biome) {
 				tile[1].setGroupHandleOfTile(tile[0].getGroupHandleOfTile());
@@ -282,22 +328,24 @@ public class Player {
 				
 					//check for neighbor if there are pass to neighbor group on our soon to be placed domino
 				if((((dominoOfKingdom.tile0.x + 1== x_tile[side] || dominoOfKingdom.tile0.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side]&&(tile[side].biome == dominoOfKingdom.tile0.biome))){
+					System.out.println("......3........Geting GROUP");
 					tile[side].setGroupHandleOfTile(dominoOfKingdom.tile0.getGroupHandleOfTile()); // create/add or merge groups with tile current group
 				}
 				
 				if((((dominoOfKingdom.tile1.x + 1== x_tile[side] || dominoOfKingdom.tile1.x - 1== x_tile[side] )))&&(dominoOfKingdom.tile0.y == y_tile[side]&&(tile[side].biome == dominoOfKingdom.tile0.biome))){
+					System.out.println("......3........Geting GROUP");
 					tile[side].setGroupHandleOfTile(dominoOfKingdom.tile1.getGroupHandleOfTile());
 				}
 			}
 		}
-		
+		*/
 		return false;
 	}
 
 	public int computePlayerScore() {
 		int score = 0;
 		for (Group i_group:biomeGroupList) {
-			System.out.println(i_group);
+			System.out.println("Computing score of "+i_group);
 			int totalCrown = 0;
 			for (Tile j_tile:i_group.biomeGroup) { // for every tiles in the group we check how many crowns they are in total
 				totalCrown =+ j_tile.numberOfCrown;

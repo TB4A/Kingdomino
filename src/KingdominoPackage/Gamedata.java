@@ -189,7 +189,9 @@ public class Gamedata {
 		public void changePlayer() {
 			currentPlayer++;
 			if (currentPlayer >= numberOfPlayer) {// if every player as played draw a new set of domino and set a new player order
+				
 				currentPlayer = 0;
+				System.out.println("GroupList"+player.get(currentPlayer).biomeGroupList);
 				setPlayerOrder(); // setPlayerOrder should be before DrawFromDrawPile because play order is dependent on player's pick of last turn
 				drawFromDrawPile();
 				round++;
@@ -230,6 +232,7 @@ public class Gamedata {
 			Domino selectedDomino = currentDraw.get(playerPick);
 			//selectedDomino.remove(5);// 5 is the index of the playerID column
 			//System.out.println("colum removed");
+			System.out.println(".............................setting Owner");
 			selectedDomino.setOwner(player.get(playerID));//selectedDomino.set(5,Integer.toString(playerID));// 5 is the index of the playerID column
 			//currentDraw.remove(int_playerPick);
 			currentDraw.set(playerPick, selectedDomino);

@@ -31,10 +31,11 @@ public class Tile{
 	public Group getGroupHandleOfTile() {
 		// TODO Auto-generated method stub
 		//used to get the group of a valid neighboring Tiles
-		
+		//System.out.println("...............Geting GROUP");
 		if(group == null) {// if the neighboring tile as no group make one
 			group = new Group(this);
 			parentDomino.getOwner().biomeGroupList.add(group);// add group to player biomegrouplist
+			System.out.println("GettingGroup and creating a group for tile, biomelist = "+ parentDomino.getOwner().biomeGroupList);
 			}
 		
 		return group;
@@ -44,16 +45,19 @@ public class Tile{
 		// TODO Auto-generated method stub
 		// this methode set the group of the tile in the Tile class , and add the reference of tile to the assosiated Group object
 		if(group == null) {// The only case of a Tile being null is when it hasnt found any neighbor yet ,else it mean that it might have multiple valid neighbor 
+			System.out.println("settingGroup , biomelist = "+ parentDomino.getOwner().biomeGroupList);
 			groupHandle.addTileToGroup(this);
 			this.group = groupHandle;
 			}
 		else {
 			mergeGroupHandleOfTile(this.group , groupHandle);
 		}
-
+		//System.out.println("...............Geting GROUP");
 	}
 	
 	public Group mergeGroupHandleOfTile(Group group1 , Group group2) {// merge group of Tile object with given Group
+		System.out.println("................Merging GROUP");
+		
 		// 1.update groups inside used Tile Object 2.remove legacy Group in the player group list 
 		Group newGroup = new Group(this);
 		parentDomino.getOwner().biomeGroupList.add(newGroup);// add newgroup to player's biomegrouplist
@@ -73,7 +77,7 @@ public class Tile{
 		group1 = null;//remove ref and allow to group 1 and 2 to be collected by the garbage collector
 		parentDomino.getOwner().biomeGroupList.remove(group2);
 		group2 = null;
-
+		System.out.println("GROUP merged , biomelist = "+ parentDomino.getOwner().biomeGroupList);
 		return newGroup;
 	}
 }
